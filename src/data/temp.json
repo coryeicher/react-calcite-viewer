@@ -1,0 +1,368 @@
+{
+    "spatialReference": {
+        "wkid": 4326,
+        "latestWkid": 4326
+    },
+    "candidates": [
+        {
+            "address": "Am Brillantengrund",
+            "location": {
+                "x": 16.346090000000061,
+                "y": 48.20079000000004
+            },
+            "score": 100,
+            "attributes": {
+                "PlaceName": "Am Brillantengrund",
+                "Place_addr": "Bandgasse 4, 1070, 7. Bezirk-Neubau, Wien"
+            },
+            "extent": {
+                "xmin": 16.341090000000062,
+                "ymin": 48.195790000000038,
+                "xmax": 16.35109000000006,
+                "ymax": 48.205790000000043
+            }
+        },
+        {
+            "address": "Baryo Pilipinas",
+            "location": {
+                "x": 4.3183800000000474,
+                "y": 52.079020000000071
+            },
+            "score": 100,
+            "attributes": {
+                "PlaceName": "Baryo Pilipinas",
+                "Place_addr": "Fluwelen Burgwal 51, 2511 CH Den Haag"
+            },
+            "extent": {
+                "xmin": 4.3133800000000475,
+                "ymin": 52.074020000000068,
+                "xmax": 4.3233800000000473,
+                "ymax": 52.084020000000073
+            }
+        },
+        {
+            "address": "Julieta Restaurant",
+            "location": {
+                "x": 4.3132900000000518,
+                "y": 52.085260000000062
+            },
+            "score": 100,
+            "attributes": {
+                "PlaceName": "Julieta Restaurant",
+                "Place_addr": "Hooikade 14, 2514 BH Den Haag"
+            },
+            "extent": {
+                "xmin": 4.3082900000000519,
+                "ymin": 52.08026000000006,
+                "xmax": 4.3182900000000517,
+                "ymax": 52.090260000000065
+            }
+        },
+        {
+            "address": "Chenab-Indisches Restaurant",
+            "location": {
+                "x": 13.291580000000067,
+                "y": 52.513120000000072
+            },
+            "score": 100,
+            "attributes": {
+                "PlaceName": "Chenab-Indisches Restaurant",
+                "Place_addr": "Knobelsdorffstraße 35, 14059, Berlin, Charlottenburg, Berlin"
+            },
+            "extent": {
+                "xmin": 13.286580000000066,
+                "ymin": 52.508120000000069,
+                "xmax": 13.296580000000068,
+                "ymax": 52.518120000000074
+            }
+        },
+        {
+            "address": "Remys Kulinarya",
+            "location": {
+                "x": 0.56023000000004686,
+                "y": 50.853930000000048
+            },
+            "score": 100,
+            "attributes": {
+                "PlaceName": "Remys Kulinarya",
+                "Place_addr": "21 Kings Road, St Leonards on Sea, East Sussex, England, TN37 6"
+            },
+            "extent": {
+                "xmin": 0.55523000000004685,
+                "ymin": 50.848930000000045,
+                "xmax": 0.56523000000004686,
+                "ymax": 50.858930000000051
+            }
+        },
+        {
+            "address": "Kamayan",
+            "location": {
+                "x": -0.19325999999995247,
+                "y": 51.492940000000033
+            },
+            "score": 100,
+            "attributes": {
+                "PlaceName": "Kamayan",
+                "Place_addr": "12 Kenway Road, London, England, SW5 0"
+            },
+            "extent": {
+                "xmin": -0.19825999999995247,
+                "ymin": 51.48794000000003,
+                "xmax": -0.18825999999995247,
+                "ymax": 51.497940000000035
+            }
+        },
+        {
+            "address": "Mamas Kubo",
+            "location": {
+                "x": -0.18672999999995454,
+                "y": 51.552490000000034
+            },
+            "score": 100,
+            "attributes": {
+                "PlaceName": "Mamas Kubo",
+                "Place_addr": "Finchley Road, London, England, NW3 6"
+            },
+            "extent": {
+                "xmin": -0.19172999999995455,
+                "ymin": 51.547490000000032,
+                "xmax": -0.18172999999995454,
+                "ymax": 51.557490000000037
+            }
+        },
+        {
+            "address": "Nilos",
+            "location": {
+                "x": -0.19988999999992529,
+                "y": 51.541050000000041
+            },
+            "score": 100,
+            "attributes": {
+                "PlaceName": "Nilos",
+                "Place_addr": "11 Willesden Lane, London, England, NW6 7"
+            },
+            "extent": {
+                "xmin": -0.2048899999999253,
+                "ymin": 51.536050000000039,
+                "xmax": -0.19488999999992529,
+                "ymax": 51.546050000000044
+            }
+        },
+        {
+            "address": "Kamayan",
+            "location": {
+                "x": -0.19876999999996769,
+                "y": 51.542310000000043
+            },
+            "score": 100,
+            "attributes": {
+                "PlaceName": "Kamayan",
+                "Place_addr": "227 Kilburn High Road, London, England, NW6 7"
+            },
+            "extent": {
+                "xmin": -0.2037699999999677,
+                "ymin": 51.537310000000041,
+                "xmax": -0.19376999999996769,
+                "ymax": 51.547310000000046
+            }
+        },
+        {
+            "address": "Myramar",
+            "location": {
+                "x": 2.1644200000000637,
+                "y": 41.382950000000051
+            },
+            "score": 100,
+            "attributes": {
+                "PlaceName": "Myramar",
+                "Place_addr": "Carrer de Valldonzella 56, 08001, El Raval, Barcelona, Cataluña"
+            },
+            "extent": {
+                "xmin": 2.1594200000000638,
+                "ymin": 41.377950000000048,
+                "xmax": 2.1694200000000636,
+                "ymax": 41.387950000000053
+            }
+        },
+        {
+            "address": "Pinoyfiesta",
+            "location": {
+                "x": 2.1669400000000678,
+                "y": 41.381200000000035
+            },
+            "score": 100,
+            "attributes": {
+                "PlaceName": "Pinoyfiesta",
+                "Place_addr": "Carrer del Peu de la Creu 16, 08001, El Raval, Barcelona, Cataluña"
+            },
+            "extent": {
+                "xmin": 2.1619400000000679,
+                "ymin": 41.376200000000033,
+                "xmax": 2.1719400000000677,
+                "ymax": 41.386200000000038
+            }
+        },
+        {
+            "address": "Manila",
+            "location": {
+                "x": 22.86892000000006,
+                "y": 47.79505000000006
+            },
+            "score": 100,
+            "attributes": {
+                "PlaceName": "Manila",
+                "Place_addr": "Strada Nicolae Golescu 1, 440115, Satu Mare"
+            },
+            "extent": {
+                "xmin": 22.863920000000061,
+                "ymin": 47.790050000000058,
+                "xmax": 22.873920000000059,
+                "ymax": 47.800050000000063
+            }
+        },
+        {
+            "address": "Jimmy",
+            "location": {
+                "x": -3.7169299999999339,
+                "y": 40.432460000000049
+            },
+            "score": 100,
+            "attributes": {
+                "PlaceName": "Jimmy",
+                "Place_addr": "Calle Hilarión Eslava 5, 28015, Gaztambide, Madrid, Comunidad de Madrid"
+            },
+            "extent": {
+                "xmin": -3.7219299999999338,
+                "ymin": 40.427460000000046,
+                "xmax": -3.711929999999934,
+                "ymax": 40.437460000000051
+            }
+        },
+        {
+            "address": "Boracay",
+            "location": {
+                "x": -5.968469999999968,
+                "y": 37.427280000000053
+            },
+            "score": 100,
+            "attributes": {
+                "PlaceName": "Boracay",
+                "Place_addr": "Calle Estrella Canopus, 41015, Barriada Pino Montano, Sevilla, Andalucía"
+            },
+            "extent": {
+                "xmin": -5.9734699999999679,
+                "ymin": 37.42228000000005,
+                "xmax": -5.9634699999999681,
+                "ymax": 37.432280000000056
+            }
+        },
+        {
+            "address": "Sayer Pide",
+            "location": {
+                "x": 28.875100000000032,
+                "y": 40.978480000000047
+            },
+            "score": 100,
+            "attributes": {
+                "PlaceName": "Sayer Pide",
+                "Place_addr": "Cevizlik, Hafız Çıkmazı Sokak, 34142, Bakırköy, İstanbul"
+            },
+            "extent": {
+                "xmin": 28.870100000000033,
+                "ymin": 40.973480000000045,
+                "xmax": 28.880100000000031,
+                "ymax": 40.98348000000005
+            }
+        },
+        {
+            "address": "Air Tasty-Humberto Delgado",
+            "location": {
+                "x": -9.1283399999999801,
+                "y": 38.770040000000051
+            },
+            "score": 100,
+            "attributes": {
+                "PlaceName": "Air Tasty-Humberto Delgado",
+                "Place_addr": "Lisboa"
+            },
+            "extent": {
+                "xmin": -9.1333399999999809,
+                "ymin": 38.765040000000049,
+                "xmax": -9.1233399999999794,
+                "ymax": 38.775040000000054
+            }
+        },
+        {
+            "address": "Prego",
+            "location": {
+                "x": -9.1447799999999688,
+                "y": 38.733360000000062
+            },
+            "score": 100,
+            "attributes": {
+                "PlaceName": "Prego",
+                "Place_addr": "Praça do Duque de Saldanha, Lisboa"
+            },
+            "extent": {
+                "xmin": -9.1497799999999696,
+                "ymin": 38.728360000000059,
+                "xmax": -9.139779999999968,
+                "ymax": 38.738360000000064
+            }
+        },
+        {
+            "address": "Fil-Fin Lounaskahvila",
+            "location": {
+                "x": 24.03138000000007,
+                "y": 61.471930000000043
+            },
+            "score": 100,
+            "attributes": {
+                "PlaceName": "Fil-Fin Lounaskahvila",
+                "Place_addr": "Kangasalantie 921, 36200, Suorama"
+            },
+            "extent": {
+                "xmin": 24.026380000000071,
+                "ymin": 61.46693000000004,
+                "xmax": 24.036380000000069,
+                "ymax": 61.476930000000046
+            }
+        },
+        {
+            "address": "Lounaskahvila Toivo",
+            "location": {
+                "x": 25.72703000000007,
+                "y": 66.499460000000056
+            },
+            "score": 100,
+            "attributes": {
+                "PlaceName": "Lounaskahvila Toivo",
+                "Place_addr": "Rovakatu 14, 96100, Rovaniemi"
+            },
+            "extent": {
+                "xmin": 25.722030000000071,
+                "ymin": 66.494460000000061,
+                "xmax": 25.732030000000069,
+                "ymax": 66.504460000000051
+            }
+        },
+        {
+            "address": "Blues Café",
+            "location": {
+                "x": -27.065799999999967,
+                "y": 38.730580000000032
+            },
+            "score": 100,
+            "attributes": {
+                "PlaceName": "Blues Café",
+                "Place_addr": "Circular Interna, Praia da Vitória, Ilha Terceira"
+            },
+            "extent": {
+                "xmin": -27.070799999999966,
+                "ymin": 38.725580000000029,
+                "xmax": -27.060799999999968,
+                "ymax": 38.735580000000034
+            }
+        }
+    ]
+}

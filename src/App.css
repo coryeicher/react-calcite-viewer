@@ -1,38 +1,127 @@
-.App {
-  text-align: center;
+.mapDiv {
+  height: 90%;
+  width: 100%;
 }
 
-.App-logo {
-  height: 40vmin;
+#campusViewDiv,
+#viewDiv {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#viewDiv {
+  margin-left: 340px;
+  border-top: 1px solid var(--calcite-ui-border-3);
+}
+
+#campusViewDiv {
   pointer-events: none;
+  height: 200px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.campus-image-container {
+  width: 100%;
+  margin-bottom: 0.75rem;
+  background-color: var(--calcite-ui-background);
+  text-align: center;
+  height: 200px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.campus-image-container img {
+  height: 200px;
+  max-width: 100%;
+}
+
+#primary-panel {
+  --calcite-panel-max-width: 340px;
+  --calcite-panel-min-width: 340px;
+  --calcite-shell-panel-max-width: 340px;
+  --calcite-shell-panel-min-width: 340px;
+}
+
+calcite-slider {
+  max-width: 96%;
+}
+
+calcite-card {
+  margin-bottom: 0.75rem;
+  cursor: pointer;
+  text-align: start;
+}
+
+body {
+  --calcite-ui-brand: purple;
+  --calcite-ui-brand-hover: rgb(94, 0, 94);
+  --calcite-ui-brand-press: rgb(87, 0, 87);
+}
+
+body.calcite-theme-dark {
+  --calcite-ui-brand: rgb(125, 0, 209);
+  --calcite-ui-brand-hover: rgb(121, 0, 205);
+  --calcite-ui-brand-press: rgb(141, 0, 225);
+}
+
+calcite-label span {
+  font-weight: 500;
+  text-align: end;
+  max-width: 60%;
+}
+
+.item-button {
+  margin: 0;
+  padding: 0;
+  border: none;
+  display: block;
+  width: 100%;
+  background: transparent;
+}
+
+.temporary-header {
+  padding: 0.75rem;
+  font-size: 20px;
+  font-weight: 500;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  color: var(--calcite-ui-brand);
+  background-color: var(--calcite-ui-background);
+  justify-content: space-between;
 }
 
-.App-link {
-  color: #61dafb;
+.calcite-theme-dark .temporary-header {
+  color: var(--calcite-ui-text-1);
+  --calcite-ui-icon-color: var(--calcite-ui-text-1);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+calcite-action-pad {
+  margin-inline-start: auto;
+}
+.temporary-header calcite-icon {
+  margin-inline-end: 1rem;
+}
+
+/* styling for detail chips */
+calcite-block calcite-chip {
+  margin-inline-end: 0.5rem;
+  margin-block-start: 0.5rem;
+}
+
+calcite-block calcite-notice {
+  margin-block-end: 1rem;
+}
+/* styling for chip select */
+#programType calcite-chip {
+  margin-inline-end: 0.5rem;
+  margin-block-start: 0.5rem;
+  cursor: pointer;
+  box-shadow: 0 0 0 2px transparent 0 0 0 4px transparent;
+  transition: box-shadow 0.15s ease-in-out;
+  --calcite-ui-info: var(--calcite-ui-brand);
+}
+
+#programType calcite-chip:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--calcite-ui-foreground-1),
+    0 0 0 4px var(--calcite-ui-brand);
 }
