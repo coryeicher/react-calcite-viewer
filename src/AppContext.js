@@ -43,8 +43,8 @@ function reducer(state, { type, payload }) {
 				container: payload.container,
 				headerText: payload.place.attributes.Place_addr
 			};
-		// case 'RESULTS_LOADING':
-		// 	return { ...state, results: payload }; 
+		case 'RESULTS_LOADING':
+			return { ...state, results: payload }; 
 		default:
 			return state;
 	}
@@ -98,7 +98,7 @@ const AppContextProvider = (props) => {
 			const { queryItems } = await import('./data/results')
 
 			// View extent changes
-			mapView.watch("center", () => !appState.activeItem && queryItems(queryLayerView));
+			mapView.watch("center", () => !appState.activeItem && queryItems(queryLayerView, dispatch));
 
 			// ------------------------------------------------------------------------
 			// initialize results
@@ -127,7 +127,8 @@ const AppContextProvider = (props) => {
 			// ... TODO leaving this in because  maybe we want to hide the map here
 			loadPlaces(state.places);
 		}
-	}, [state]);
+	// }, [state]);
+	}, [state.showMap]);
 
 	return <AppContext.Provider value={value}>{props.children}</AppContext.Provider>;
 };

@@ -60,7 +60,8 @@ function App() {
 				<CalciteShellPanel slot="primary-panel" width-scale id="primary-panel">
 					<CalciteFlow id="flow">
 						<CalcitePanel heading="Results" id="resultBlock"
-								loading={state.results.loading}>
+								loading={state.results.loading}
+								summary={state.results.message}>
 							<CalcitePagination id="pagination" slot="footer">
 							</CalcitePagination>
 							<CalciteBlock open id="results">

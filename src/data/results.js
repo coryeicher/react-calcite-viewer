@@ -11,7 +11,6 @@ import { handleCasing, whereClause } from '.././utils.js';
 const paginationNode = document.getElementById("pagination");
 // TODO also, resetNode is part of the filters UI
 // const resetNode = document.getElementById("reset");
-const resultBlockNode = document.getElementById("resultBlock");
 const resultsNode = document.getElementById("results");
 
 export function displayNoResult() {
@@ -82,9 +81,7 @@ export function displayNoResult() {
     }
     const view = layerView.view;
 
-    // TODO uncomment once i've sorted out state situation
-    // notifyResultsLoading(true, "", dispatch);
-    resultBlockNode.loading = true;
+    notifyResultsLoading(true, "", dispatch);
 
     const where = whereClause();
 
@@ -118,12 +115,9 @@ export function displayNoResult() {
         layerView.layer.objectIdField,
       ],
     });
+        
+    notifyResultsLoading(false, `${appState.count} restaurants found within the map.`, dispatch);
     
-    // TODO sort this out
-    resultBlockNode.loading = false;
-    resultBlockNode.summary = `${appState.count} restaurants found within the map.`;
-    // notifyResultsLoading(false, `${appState.count} restaurants found within the map.`, dispatch);
-
     resultsNode.innerHTML = "";
     if (results.features.length) {
       results.features.map((result) => displayResult(result, layerView.layer));
