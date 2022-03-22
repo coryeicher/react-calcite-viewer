@@ -45,6 +45,15 @@ function reducer(state, { type, payload }) {
 			};
 		case 'RESULTS_LOADING':
 			return { ...state, results: payload }; 
+		case 'SHOW_DETAILS':
+			const myFeature = payload;
+			console.debug(`reduce SHOW_DETAILS, ${myFeature.attributes["PlaceName"]}`);
+			return {
+				...state,
+				details: {
+					feature: myFeature
+				}
+			};
 		default:
 			return state;
 	}

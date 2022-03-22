@@ -1,6 +1,8 @@
 import React, { useContext, useRef } from 'react';
 
 import "@esri/calcite-components/dist/components/calcite-block";
+import "@esri/calcite-components/dist/components/calcite-card";
+import "@esri/calcite-components/dist/components/calcite-chip";
 import "@esri/calcite-components/dist/components/calcite-flow";
 import "@esri/calcite-components/dist/components/calcite-icon";
 import "@esri/calcite-components/dist/components/calcite-notice";
@@ -12,6 +14,8 @@ import "@esri/calcite-components/dist/components/calcite-shell-center-row";
 import "@esri/calcite-components/dist/components/calcite-tooltip-manager";
 import {
 	CalciteBlock,
+	CalciteCard,
+	CalciteChip,
 	CalciteFlow,
 	CalciteIcon,
 	CalciteNotice,
@@ -66,7 +70,36 @@ function App() {
 							</CalcitePagination>
 							<CalciteBlock open id="results">
 								{(state.results.resultFeatures) && (state.results.resultFeatures.length >= 0) ? (
-									null
+									state.results.resultFeatures.map((feature) => (
+										<button className = "item-button"
+												onClick={() => {
+													console.debug(`results.feature.onClick(), ${feature.attributes["PlaceName"]}`);
+													dispatch({
+														type: 'SHOW_DETAILS',
+														payload: feature
+													});
+												}}>
+											<CalciteCard>
+												{(parseInt(feature.attributes["HasSeating"]) === 1) ? (
+													<CalciteChip icon="organization" slot="footer-trailing" scale="s">
+														Seating
+													</CalciteChip>
+												) : (
+													null
+												)}
+												<CalciteChip icon="star" slot="footer-leading" scale="s">
+													{feature.attributes["Rating"]} Stars(s)
+												</CalciteChip>
+												<span slot="title">
+												{feature.attributes["PlaceName"]}
+												</span>
+												<span slot="subtitle">
+													{feature.attributes["Place_addr"]}
+												</span>
+											</CalciteCard>
+
+										</button>
+									))
 								) : (
 									<CalciteNotice active width="full">
 										<span slot="title">
