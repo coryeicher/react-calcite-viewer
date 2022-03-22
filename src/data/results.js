@@ -11,7 +11,6 @@ import { handleCasing, whereClause } from '.././utils.js';
 const paginationNode = document.getElementById("pagination");
 // TODO also, resetNode is part of the filters UI
 // const resetNode = document.getElementById("reset");
-const resultBlockNode = document.getElementById("resultBlock");
 const resultsNode = document.getElementById("results");
 
 export function displayNoResult() {
@@ -82,9 +81,7 @@ export function displayNoResult() {
     }
     const view = layerView.view;
 
-    // TODO uncomment once i've sorted out state situation
-    // notifyResultsLoading(true, "", dispatch);
-    resultBlockNode.loading = true;
+    notifyResultsLoading(true, "", dispatch);
 
     const where = whereClause();
 
@@ -118,30 +115,34 @@ export function displayNoResult() {
         layerView.layer.objectIdField,
       ],
     });
+        
+    const msg = `${appState.count} restaurants found within the map.`
+    // notifyResultsLoading(false, msg, dispatch);
     
-    // TODO sort this out
-    resultBlockNode.loading = false;
-    resultBlockNode.summary = `${appState.count} restaurants found within the map.`;
-    // notifyResultsLoading(false, `${appState.count} restaurants found within the map.`, dispatch);
-
-    resultsNode.innerHTML = "";
+    
+    // resultsNode.innerHTML = "";
     if (results.features.length) {
-      results.features.map((result) => displayResult(result, layerView.layer));
+        // TODO notify via state update instead of by calling displayResult and displayNoResult    
+        // results.features.map((result) => displayResult(result, layerView.layer));
     } else {
-      displayNoResult();
+        //displayNoResult();
+        //notifyHasResults(results.features, msg, dispatch);
     }
-    // TODO use this instead of above logic 
-    // const hasResults = results.features.length > 0;
-    // notifyHasResults(hasResults, results.features, dispatch)
+    notifyHasResults(results.features, msg, dispatch);
   }
 
-function notifyHasResults(hasResults, resultFeatures, dispatch) {
+function notifyHasResults(features, msg, dispatch) {
+
+    // todo for clarity:
+    //  rename type and re-use
+    //  refactor notify functions (use 1 fn?) and re-use
 
     dispatch({
-        type: 'HAS_RESULTS',
+        type: 'RESULTS_LOADING', 
         payload: {
-            hasResults: hasResults,
-            resultFeatures: resultFeatures,
+            loading: false,
+            message: msg,
+            resultFeatures: features,
         },
     });
 }

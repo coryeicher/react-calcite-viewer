@@ -43,8 +43,17 @@ function reducer(state, { type, payload }) {
 				container: payload.container,
 				headerText: payload.place.attributes.Place_addr
 			};
-		// case 'RESULTS_LOADING':
-		// 	return { ...state, results: payload }; 
+		case 'RESULTS_LOADING':
+			return { ...state, results: payload }; 
+		case 'SHOW_DETAILS':
+			const myFeature = payload;
+			console.debug(`reduce SHOW_DETAILS, ${myFeature.attributes["PlaceName"]}`);
+			return {
+				...state,
+				details: {
+					feature: myFeature
+				}
+			};
 		default:
 			return state;
 	}
@@ -53,6 +62,7 @@ function reducer(state, { type, payload }) {
 const AppContextProvider = (props) => {
 	const [state, dispatch] = useReducer(reducer, initialState);
 	const value = { state, dispatch };
+	let queryLayerView;
 
 	// NOTE this side-effect is the default, "on page load" behavior
 	useEffect(() => {
@@ -91,14 +101,18 @@ const AppContextProvider = (props) => {
 			  ...appConfig.collegeLayerOutFields,
 			  queryLayer.objectIdField,
 			];
-			const queryLayerView = await mapView.whenLayerView(queryLayer);
+			
+			// pulled up so that we can use in other side effects
+			// const queryLayerView = await mapView.whenLayerView(queryLayer);
+			queryLayerView = await mapView.whenLayerView(queryLayer);
+			
 			// show location on webmap
 			// showLocation(place, showMapLocation);
 			
 			const { queryItems } = await import('./data/results')
 
 			// View extent changes
-			mapView.watch("center", () => !appState.activeItem && queryItems(queryLayerView));
+			mapView.watch("center", () => !appState.activeItem && queryItems(queryLayerView, dispatch));
 
 			// ------------------------------------------------------------------------
 			// initialize results
@@ -127,7 +141,8 @@ const AppContextProvider = (props) => {
 			// ... TODO leaving this in because  maybe we want to hide the map here
 			loadPlaces(state.places);
 		}
-	}, [state]);
+	// }, [state]);
+	}, [state.showMap]);
 
 	return <AppContext.Provider value={value}>{props.children}</AppContext.Provider>;
 };
