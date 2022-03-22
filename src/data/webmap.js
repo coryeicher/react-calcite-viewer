@@ -11,6 +11,7 @@ import '@arcgis/core/assets/esri/themes/light/main.css';
 
 import { coffee } from './images';
 import { isEmpty } from 'lodash';
+import { appConfig } from '.././config.js';
 
 const symbol = {
 	type: 'picture-marker',
@@ -21,24 +22,6 @@ const symbol = {
 	yoffset: 23,
 };
 
-// const checkSymbol = {
-// 	type: 'picture-marker',
-// 	// from https://icons8.com/icons/set/check--static --> icon Becris Lineal → Mintab for iOS  → Check
-// 	// url: 'https://eichcorp.maps.arcgis.com/sharing/rest/content/items/1d11db1d7ade47dd8c782054851a7279/data',
-// 	url: 'https://coowydy65hkjls6p.maps.arcgis.com/sharing/rest/content/items/cb24ce457b5447d9bdd2ffb054a5d0df/data',
-// 	width: 22,
-// 	height: 22,
-// 	yoffset: 23,
-// };
-
-// const checkSymbol = new TextSymbol({
-// 	color: '#7A003C',
-// 	text: '\ue605',  // esri-icon-check-mark
-// 	font: {  // autocast as new Font()
-// 	  size: 24,
-// 	  family: 'CalciteWebCoreIcons'
-// 	}
-//   });
 const checkSymbol = {
 	type: 'text',
 	color: '#7A003C',
@@ -50,12 +33,8 @@ const checkSymbol = {
   };
 
 export const webmap = new WebMap({
-	// TODO centralize all this config in one place, e.g AppContext.js
 	portalItem: {
-		// id: 'f9b9672edbe440f49c6473c1de46eaef' // AE Sites Proto EXTERNAL 09 (New Viewer). requires ae_web apiKey
-		// id: '44f6dab525c5461a8e8b0b4286ccc93b' // streetViewProto_02
-		// id: '2ff9e65d764f4a218f45563f9ace4408' // streetViewProto_02_classic
-		id: "1c03bf18ac7a4d4c8741dd43cb479076", // streetViewProto_03_classic
+		id: appConfig.webMapId
 	  }
 });
 

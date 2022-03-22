@@ -11,6 +11,7 @@ import "@esri/calcite-components/dist/components/calcite-panel";
 import "@esri/calcite-components/dist/components/calcite-shell";
 import "@esri/calcite-components/dist/components/calcite-shell-panel";
 import "@esri/calcite-components/dist/components/calcite-shell-center-row";
+import "@esri/calcite-components/dist/components/calcite-tooltip";
 import "@esri/calcite-components/dist/components/calcite-tooltip-manager";
 import {
 	CalciteBlock,
@@ -24,6 +25,7 @@ import {
 	CalciteShell,
 	CalciteShellPanel,
 	CalciteShellCenterRow,
+	CalciteTooltip,
 	CalciteTooltipManager,
   } from "@esri/calcite-components-react";
   import "@esri/calcite-components/dist/calcite/calcite.css";
@@ -114,9 +116,9 @@ function App() {
 						</CalcitePanel>
 					</CalciteFlow>
 				</CalciteShellPanel>
-				<CalciteShellCenterRow height-scale="l">
+				<CalciteShellCenterRow height-scale="l" position="end">
 					{/* map view is rendered in this div based on initialState*/}
-					<div className="mapDiv" ref={mapRef} id="myMapDiv">
+					<div ref={mapRef} id="viewDiv">
 						{[state.showMap ? (
 							[]
 						) : (
@@ -127,6 +129,7 @@ function App() {
 					</div>
 				</CalciteShellCenterRow>
 			</CalciteShell>
+			<CalciteTooltip reference-element="reset">Reset filters</CalciteTooltip>
 		</CalciteTooltipManager>
 
 		// <Container maxWidth="lg" className="app-container">
