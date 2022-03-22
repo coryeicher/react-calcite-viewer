@@ -65,6 +65,18 @@ function App() {
 							<CalcitePagination id="pagination" slot="footer">
 							</CalcitePagination>
 							<CalciteBlock open id="results">
+								{(state.results.resultFeatures) && (state.results.resultFeatures.length >= 0) ? (
+									null
+								) : (
+									<CalciteNotice active width="full">
+										<span slot="title">
+											No results in view
+										</span>
+										<span slot="message">
+											Reset filters or move the map
+										</span>
+									</CalciteNotice>
+								)}
 							</CalciteBlock>
 						</CalcitePanel>
 					</CalciteFlow>

@@ -53,6 +53,7 @@ function reducer(state, { type, payload }) {
 const AppContextProvider = (props) => {
 	const [state, dispatch] = useReducer(reducer, initialState);
 	const value = { state, dispatch };
+	let queryLayerView;
 
 	// NOTE this side-effect is the default, "on page load" behavior
 	useEffect(() => {
@@ -91,7 +92,11 @@ const AppContextProvider = (props) => {
 			  ...appConfig.collegeLayerOutFields,
 			  queryLayer.objectIdField,
 			];
-			const queryLayerView = await mapView.whenLayerView(queryLayer);
+			
+			// pulled up so that we can use in other side effects
+			// const queryLayerView = await mapView.whenLayerView(queryLayer);
+			queryLayerView = await mapView.whenLayerView(queryLayer);
+			
 			// show location on webmap
 			// showLocation(place, showMapLocation);
 			
