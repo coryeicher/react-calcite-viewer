@@ -16,7 +16,7 @@ export const initialState = {
 	showMap: true,
 	place: null,
 	// container: null,
-	container: 'myMapDiv', 		// to show map when page loads, we must specify id of map div here			   
+	container: 'viewDiv', 		// to show map when page loads, we must specify id of map div here			   
 	headerText: 'Choose an address',
 	showMapLocation: { x: -0.204010, y: 51.523760 }, // London
 	results: {

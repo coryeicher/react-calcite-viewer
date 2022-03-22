@@ -13,66 +13,7 @@ const paginationNode = document.getElementById("pagination");
 // const resetNode = document.getElementById("reset");
 const resultsNode = document.getElementById("results");
 
-export function displayNoResult() {
-    const notice = document.createElement("calcite-notice");
-    notice.active = true;
-    notice.width = "full";
-
-    const message = document.createElement("span");
-    message.slot = "message";
-    message.innerText = "Reset filters or move the map";
-
-    const title = document.createElement("span");
-    title.slot = "title";
-    title.innerText = "No results in view";
-
-    notice.appendChild(title);
-    notice.appendChild(message);
-    resultsNode.appendChild(notice);
-  }
-
-  export function displayResult(result, queryLayer) {
-    const attributes = result.attributes;
-    const itemButton = document.createElement("button");
-    itemButton.className = "item-button";
-    const item = document.createElement("calcite-card");
-    itemButton.appendChild(item);
-
-    if (parseInt(attributes["HasSeating"]) === 1) {
-      const chip = document.createElement("calcite-chip");
-      chip.icon = "organization";
-      chip.slot = "footer-trailing";
-      chip.scale = "s";
-      chip.innerText = "Seating";
-      item.appendChild(chip);
-    }
-
-    const chipState = document.createElement("calcite-chip");
-    chipState.slot = "footer-leading";
-    chipState.scale = "s";
-    chipState.icon = "star";
-    chipState.innerText = `${attributes["Rating"]} Star(s)`;
-    item.appendChild(chipState);
-
-    const title = document.createElement("span");
-    title.slot = "title";
-    title.innerText = handleCasing(attributes["PlaceName"]);
-
-    const summary = document.createElement("span");
-    summary.slot = "subtitle";
-    summary.innerText = handleCasing(attributes["Place_addr"]);
-
-    item.appendChild(title);
-    item.appendChild(summary);
-
-    itemButton.addEventListener("click", () =>
-        resultClickHandler(result.attributes[queryLayer.objectIdField])
-    );
-
-    resultsNode.appendChild(itemButton);
-  }
-
-  export async function queryItems(layerView, dispatch, start = 0) {
+export async function queryItems(layerView, dispatch, start = 0) {
     // resetNode.hidden = !appState.hasFilterChanges;
     // resetNode.indicator = appState.hasFilterChanges;
 
@@ -117,23 +58,12 @@ export function displayNoResult() {
     });
         
     const msg = `${appState.count} restaurants found within the map.`
-    // notifyResultsLoading(false, msg, dispatch);
-    
-    
-    // resultsNode.innerHTML = "";
-    if (results.features.length) {
-        // TODO notify via state update instead of by calling displayResult and displayNoResult    
-        // results.features.map((result) => displayResult(result, layerView.layer));
-    } else {
-        //displayNoResult();
-        //notifyHasResults(results.features, msg, dispatch);
-    }
     notifyHasResults(results.features, msg, dispatch);
   }
 
 function notifyHasResults(features, msg, dispatch) {
 
-    // todo for clarity:
+    // T"ODO for clarity:
     //  rename type and re-use
     //  refactor notify functions (use 1 fn?) and re-use
 
