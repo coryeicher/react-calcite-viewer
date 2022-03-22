@@ -76,10 +76,8 @@ view.ui.add(home, 'top-left');
 
 export async function initialize(container) {
 	view.container = container;
-
-	// ae_web
-	config.apiKey =
-	'AAPK1806bdd7ac20492796b685f27516b9f37geNq1QJiYVbr7g398RxfZ3bNAE8-qCXV3qvLJNPiGSGn7lba6mVknQYQLy7emjJ'
+	
+	// config.apiKey =	'REPLACE_WITH_API_KEY'
    
 	return view;
 }
