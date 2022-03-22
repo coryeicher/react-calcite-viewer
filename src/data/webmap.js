@@ -3,9 +3,14 @@ import MapView from '@arcgis/core/views/MapView';
 import Graphic from '@arcgis/core/Graphic';
 import WebMap from '@arcgis/core/WebMap';
 import config from '@arcgis/core/config';
-import Home from '@arcgis/core/widgets/Home'
 import TextSymbol from '@arcgis/core/symbols/TextSymbol';
 import Point from '@arcgis/core/geometry/Point';
+
+// widgets
+import Expand from '@arcgis/core/widgets/Expand'
+import Home from '@arcgis/core/widgets/Home'
+import Legend from '@arcgis/core/widgets/Legend'
+import Search from '@arcgis/core/widgets/Search'
 
 import '@arcgis/core/assets/esri/themes/light/main.css';
 
@@ -22,16 +27,6 @@ const symbol = {
 	yoffset: 23,
 };
 
-const checkSymbol = {
-	type: 'text',
-	color: '#7A003C',
-	text: '\ue605',  // esri-icon-check-mark
-	font: {  // autocast as new Font()
-	  size: 24,
-	  family: 'CalciteWebCoreIcons'
-	}
-  };
-
 export const webmap = new WebMap({
 	portalItem: {
 		id: appConfig.webMapId
@@ -40,7 +35,6 @@ export const webmap = new WebMap({
 
 const app = {
 	map: webmap,
-	scale: 100000,
 	ui: {
 		components: ['attribution', 'zoom', /*'compass',*/ ],
 	},
@@ -48,10 +42,7 @@ const app = {
 
 export let view = new MapView(app);
 
-const home = new Home({
-	view: view
-});
-view.ui.add(home, 'top-left');
+setupWidgets();
 
 export async function initialize(container) {
 	view.container = container;
@@ -97,4 +88,37 @@ export async function showLocation(item, mapCoord) {
 		// view.center = [mapCoord.x, mapCoord.y];
 		view.center = new Point({ x: mapCoord.x, y: mapCoord.y});
 	}
+}
+
+function setupWidgets() {
+	const home = new Home({
+		view: view
+	});
+	view.ui.add(home, 'top-left');
+
+	view.ui.move("zoom", "top-left");
+
+	const search = new Search({
+		view,
+		resultGraphicEnabled: false,
+		popupEnabled: false,
+	  });
+	
+	  const searchExpand = new Expand({
+		view,
+		content: search,
+	  });
+	
+	  view.ui.add(searchExpand, "top-left");
+	
+	  const legend = new Legend({
+		view,
+	  });
+	
+	  const legendExpand = new Expand({
+		view,
+		content: legend,
+	  });
+	
+	  view.ui.add(legendExpand, "top-left");
 }
