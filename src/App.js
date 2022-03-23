@@ -1,6 +1,8 @@
 import React, { useContext, useRef } from 'react';
 
+import "@esri/calcite-components/dist/components/calcite-action";
 import "@esri/calcite-components/dist/components/calcite-block";
+import "@esri/calcite-components/dist/components/calcite-block-section";
 import "@esri/calcite-components/dist/components/calcite-button";
 import "@esri/calcite-components/dist/components/calcite-card";
 import "@esri/calcite-components/dist/components/calcite-chip";
@@ -12,10 +14,13 @@ import "@esri/calcite-components/dist/components/calcite-panel";
 import "@esri/calcite-components/dist/components/calcite-shell";
 import "@esri/calcite-components/dist/components/calcite-shell-panel";
 import "@esri/calcite-components/dist/components/calcite-shell-center-row";
+import "@esri/calcite-components/dist/components/calcite-slider";
 import "@esri/calcite-components/dist/components/calcite-tooltip";
 import "@esri/calcite-components/dist/components/calcite-tooltip-manager";
 import {
+	CalciteAction,
 	CalciteBlock,
+	CalciteBlockSection,
 	CalciteButton,
 	CalciteCard,
 	CalciteChip,
@@ -27,6 +32,7 @@ import {
 	CalciteShell,
 	CalciteShellPanel,
 	CalciteShellCenterRow,
+	CalciteSlider,
 	CalciteTooltip,
 	CalciteTooltipManager,
 	CalciteLabel,
@@ -123,10 +129,9 @@ function App() {
 						{(state.details && state.details.attributes) ? (
 							// wrap CalcitePanel in div to avoid DOMException
 							<div>
-								<CalcitePanel
+								<CalcitePanel id = "detail-panel"
 									heading = {state.details.attributes["PlaceName"]}
 									summary = {`${state.details.attributes["Rating"]} Stars(s)`}
-									id = "detail-panel"
 									onCalcitePanelBackClick={async(e) => {
 										const view = state.results.layerView.view;
 										await view.goTo(state.details.savedExtent);
@@ -241,6 +246,33 @@ function App() {
 						)]}
 					</div>
 				</CalciteShellCenterRow>
+				<CalciteShellPanel slot="contextual-panel" detached>
+					<CalciteBlock id="filters" heading="Filters" collapsible>
+						<CalciteAction id="reset" icon="reset" slot="icon" hidden></CalciteAction>
+						<CalciteBlock heading="Basics" open>
+						<CalciteLabel>
+							Restaurant type
+							<calcite-select id="schoolType">
+								<calcite-option value="all">All</calcite-option>
+							</calcite-select>
+						</CalciteLabel>
+						<CalciteLabel>
+							Rating
+							<div id="programType"></div>
+						</CalciteLabel>
+						</CalciteBlock>
+						<CalciteBlock heading="Seating" open>
+							<CalciteBlockSection id="housingSection" text="Offers seating" toggle-display="switch">
+								<CalciteLabel>
+									Number of seats
+									<CalciteSlider id="housing" range label-handles min-value="0" max-value="75" min="0" max="75"
+									step="40">
+									</CalciteSlider>
+								</CalciteLabel>
+							</CalciteBlockSection>
+						</CalciteBlock>
+					</CalciteBlock>
+				</CalciteShellPanel>
 			</CalciteShell>
 			<CalciteTooltip reference-element="reset">Reset filters</CalciteTooltip>
 		</CalciteTooltipManager>
