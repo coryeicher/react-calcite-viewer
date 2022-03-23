@@ -55,11 +55,3 @@ function notifyHasDetails(featureAttributes, extent, dispatch) {
         },
     });
 }
-
-function notifyClearExtent(dispatch) {
-
-    dispatch({
-        type: 'CLEAR_DETAILS', 
-        payload: []
-    });
-}
