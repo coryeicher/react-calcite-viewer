@@ -52,16 +52,16 @@ export async function queryItems(layerView, dispatch, start = 0) {
       geometry: view.extent.clone(),
       where: whereClause(),
       outFields: [
-        ...appConfig.collegeLayerOutFields,
+        ...appConfig.layerOutFields,
         layerView.layer.objectIdField,
       ],
     });
         
     const msg = `${appState.count} restaurants found within the map.`
-    notifyHasResults(results.features, msg, dispatch);
+    notifyHasResults(results.features, msg, layerView, dispatch);
   }
 
-function notifyHasResults(features, msg, dispatch) {
+function notifyHasResults(resultFeatures, msg, resultLayerView, dispatch) {
 
     // T"ODO for clarity:
     //  rename type and re-use
@@ -72,7 +72,8 @@ function notifyHasResults(features, msg, dispatch) {
         payload: {
             loading: false,
             message: msg,
-            resultFeatures: features,
+            features: resultFeatures,
+            layerView: resultLayerView
         },
     });
 }

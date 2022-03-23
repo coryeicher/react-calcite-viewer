@@ -65,14 +65,17 @@ function App() {
 				</div>
 				<CalciteShellPanel slot="primary-panel" width-scale id="primary-panel">
 					<CalciteFlow id="flow">
-						<CalcitePanel heading="Results" id="resultBlock"
-								loading={state.results.loading}
-								summary={state.results.message}>
+						<CalcitePanel 
+							heading="Results"
+							id="resultBlock"
+							loading={state.results.loading}
+							summary={state.results.message}
+							>
 							<CalcitePagination id="pagination" slot="footer">
 							</CalcitePagination>
 							<CalciteBlock open id="results">
-								{(state.results.resultFeatures) && (state.results.resultFeatures.length >= 0) ? (
-									state.results.resultFeatures.map((feature) => (
+								{(state.results.features) && (state.results.features.length >= 0) ? (
+									state.results.features.map((feature) => (
 										<button className = "item-button"
 												onClick={() => {
 													console.debug(`Card onClick(), ${feature.attributes["PlaceName"]}`);
@@ -114,6 +117,26 @@ function App() {
 								)}
 							</CalciteBlock>
 						</CalcitePanel>
+						{(state.details && state.details.attributes) ? (
+							// wrap CalcitePanel in div to avoid DOMException
+							<div>
+								<CalcitePanel
+									heading = {state.details.attributes["PlaceName"]}
+									summary = {`${state.details.attributes["Rating"]} Stars(s)`}
+									id = "detail-panel"
+									onCalcitePanelBackClick={async(e) => {
+										const view = state.results.layerView.view;
+										await view.goTo(state.details.savedExtent);
+										dispatch({
+											type: 'CLEAR_DETAILS', 
+											payload: []
+										});
+									}}
+									>
+								</CalcitePanel>
+							</div>
+						) : (
+							null)}
 					</CalciteFlow>
 				</CalciteShellPanel>
 				<CalciteShellCenterRow height-scale="l" position="end">

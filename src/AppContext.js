@@ -3,6 +3,7 @@ import React, { createContext, useEffect, useReducer } from 'react';
 import { placeLocator } from './data/locator';
 import { appConfig } from "./config.js";
 import { appState } from "./state.js";
+import { queryDetails } from './data/details';
 
 export const AppContext = createContext();
 
@@ -49,21 +50,30 @@ function reducer(state, { type, payload }) {
 			return { ...state, results: payload }; 
 		case 'QUERY_DETAILS':
 			myFeature = payload;
-			console.debug(`reduce QUERY_DETAILS, ${myFeature.attributes["PlaceName"]}`);
+			// console.debug(`reduce QUERY_DETAILS, ${myFeature.attributes["PlaceName"]}`);
 			return {
 				...state,
 				details: {
 					queryFeature: myFeature
 				}
 			};
-		case 'SHOW_DETAILS':
-			myFeature = payload;
-			console.debug(`reduce SHOW_DETAILS, ${myFeature.attributes["PlaceName"]}`);
+		case 'HAS_DETAILS':
+			// console.debug(`reduce HAS_DETAILS, ${payload.attributes["PlaceName"]}`);
 			return {
 				...state,
 				details: {
-					showFeature: myFeature
+					queryFeature: state.details.queryFeature,
+					attributes: payload.attributes,
+					savedExtent: payload.savedExtent,
+					activeItem: payload.activeItem
 				}
+			};
+		case 'CLEAR_DETAILS':
+			// console.debug(`reduce HAS_DETAILS, ${payload.attributes["PlaceName"]}`);
+			// revert details savedExtent and activeItem
+			return {
+				...state,
+				details: initialState.details
 			};
 		default:
 			return state;
@@ -73,7 +83,8 @@ function reducer(state, { type, payload }) {
 const AppContextProvider = (props) => {
 	const [state, dispatch] = useReducer(reducer, initialState);
 	const value = { state, dispatch };
-	let queryLayerView;
+	// note: this does not persist
+	// let queryLayerView;
 
 	// NOTE this side-effect is the default, "on page load" behavior
 	useEffect(() => {
@@ -95,9 +106,7 @@ const AppContextProvider = (props) => {
 			const mapInit = await initialize(container, dispatch);
 			const mapView = mapInit.mapView;
 			
-			// pulled up so that we can use in other side effects
-			// const queryLayerView = await mapView.whenLayerView(queryLayer);
-			queryLayerView = await mapView.whenLayerView(mapInit.queryLayer);
+			const queryLayerView = await mapView.whenLayerView(mapInit.queryLayer);
 			
 			// show location on webmap
 			// showLocation(place, showMapLocation);
@@ -138,11 +147,30 @@ const AppContextProvider = (props) => {
 	}, [state.showMap]);
 
 	useEffect(() => {
-		const placeName = state.details.queryFeature ? 
-			state.details.queryFeature.attributes["PlaceName"] :
-			'NONE'
+		// const placeName = state.details.queryFeature ? 
+		// 	state.details.queryFeature.attributes["PlaceName"] :
+		// 	'NONE'
 		
-		console.debug(`Side effect queryFeature, ${placeName}`);
+		// console.debug(`Side effect queryFeature, ${placeName}`);
+
+		// // const { queryDetails } = await import('./data/details')
+		// const { queryDetails } = import('./data/details')
+		// queryDetails(queryLayerView, state.details.queryFeature, dispatch)
+
+		const loadAndQueryDetails = async () => {
+			const placeName = state.details.queryFeature ? 
+				state.details.queryFeature.attributes["PlaceName"] :
+				'NONE'
+			
+			console.debug(`Side effect queryFeature, ${placeName}`);
+
+			const { queryDetails } = await import('./data/details');
+			// const { queryDetails } = import('./data/details')
+			if (state.results && state.results.layerView) {
+				queryDetails(state.results.layerView, state.details.queryFeature, dispatch);
+			}
+		}
+		loadAndQueryDetails();
 	}, [state.details.queryFeature]);
 
 	return <AppContext.Provider value={value}>{props.children}</AppContext.Provider>;

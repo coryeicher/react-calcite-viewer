@@ -62,7 +62,7 @@ export async function initialize(container, dispatch) {
 	await queryLayer.load();
   
 	queryLayer.outFields = [
-	  ...appConfig.collegeLayerOutFields,
+	  ...appConfig.layerOutFields,
 	  queryLayer.objectIdField,
 	];
 

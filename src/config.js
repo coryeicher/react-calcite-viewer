@@ -17,7 +17,7 @@ export const appConfig = {
   pageNum: 25,
   collegeLayerUrl:
     "https://services3.arcgis.com/cWSjYIaxDaOe4Fsz/arcgis/rest/services/StreetView_SampleInput_EuroRest_20/FeatureServer",
-  collegeLayerOutFields: [
+  layerOutFields: [
     "ID",
     "PlaceName",
     "Place_addr",
