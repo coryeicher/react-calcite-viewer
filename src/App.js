@@ -270,7 +270,19 @@ function App() {
 						</CalciteLabel>
 						<CalciteLabel>
 							Rating
-							<div id="programType"></div>
+							<div id="programType">
+							{appConfig.programTypes.map((typeObj) => (
+								<CalciteChip
+									tabIndex = "0"
+									// dataset-type instead?
+									data-type = "type" 
+									value = {typeObj}
+									scale = "s"
+								>
+									{`${typeObj} stars()`}
+								</CalciteChip>
+							))}
+							</div>
 						</CalciteLabel>
 						</CalciteBlock>
 						<CalciteBlock heading="Seating" open>
