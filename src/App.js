@@ -1,5 +1,7 @@
 import React, { useContext, useRef } from 'react';
 
+// import { _map } from 'lodash/_Map';
+
 import "@esri/calcite-components/dist/components/calcite-action";
 import "@esri/calcite-components/dist/components/calcite-block";
 import "@esri/calcite-components/dist/components/calcite-block-section";
@@ -8,9 +10,11 @@ import "@esri/calcite-components/dist/components/calcite-card";
 import "@esri/calcite-components/dist/components/calcite-chip";
 import "@esri/calcite-components/dist/components/calcite-flow";
 import "@esri/calcite-components/dist/components/calcite-icon";
+import "@esri/calcite-components/dist/components/calcite-option";
 import "@esri/calcite-components/dist/components/calcite-notice";
 import "@esri/calcite-components/dist/components/calcite-pagination";
 import "@esri/calcite-components/dist/components/calcite-panel";
+import "@esri/calcite-components/dist/components/calcite-select";
 import "@esri/calcite-components/dist/components/calcite-shell";
 import "@esri/calcite-components/dist/components/calcite-shell-panel";
 import "@esri/calcite-components/dist/components/calcite-shell-center-row";
@@ -26,9 +30,11 @@ import {
 	CalciteChip,
 	CalciteFlow,
 	CalciteIcon,
+	CalciteOption,
 	CalciteNotice,
 	CalcitePagination,
 	CalcitePanel,
+	CalciteSelect,
 	CalciteShell,
 	CalciteShellPanel,
 	CalciteShellCenterRow,
@@ -56,6 +62,8 @@ import { AppContext } from './AppContext';
 
 import './App.css';
 // import { Tooltip } from '@material-ui/core';
+
+import { appConfig } from "./config.js";
 
 function App() {
 	const { state, dispatch } = useContext(AppContext);
@@ -252,9 +260,13 @@ function App() {
 						<CalciteBlock heading="Basics" open>
 						<CalciteLabel>
 							Restaurant type
-							<calcite-select id="schoolType">
-								<calcite-option value="all">All</calcite-option>
-							</calcite-select>
+							<CalciteSelect id="schoolType">
+								<CalciteOption value="all">All</CalciteOption>
+								{appConfig.schoolTypes.map((typeObj) => (
+									// hacky and not so pretty
+									<CalciteOption value={`${Object.keys(typeObj)[0]}`}>{Object.values(typeObj)[0]}</CalciteOption>
+								))}
+							</CalciteSelect>
 						</CalciteLabel>
 						<CalciteLabel>
 							Rating

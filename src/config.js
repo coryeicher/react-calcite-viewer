@@ -1,11 +1,16 @@
 export const appConfig = {
   webMapId: "1c03bf18ac7a4d4c8741dd43cb479076", // streetViewProto_03_classic
   defaultSchoolType: "all",
-  schoolTypes: {
-    Cafe: [0],
-    Restaurant: [1],
-    "Take-out": [2],
-  },
+  // schoolTypes: {
+  //   Cafe: [0],
+  //   Restaurant: [1],
+  //   "Take-out": [2],
+  // },
+  schoolTypes: [
+    { 0: "Cafe"},
+    { 1: "Restaurant"},
+    { 2: "Take-out"},
+  ],
   programTypes: {
     "0 Stars": [0],
     "1 Stars": [1],
