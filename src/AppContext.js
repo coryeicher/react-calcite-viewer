@@ -21,12 +21,14 @@ export const initialState = {
 	showMapLocation: { x: -0.204010, y: 51.523760 }, // London
 	results: {
 		loading: true
-	}
+	},
+	details: {}
 };
 
 let initialResults = [];
 
 function reducer(state, { type, payload }) {
+	let myFeature;
 	switch (type) {
 		case 'ADD_PLACES':
 			if (payload.length > 0) {
@@ -45,13 +47,22 @@ function reducer(state, { type, payload }) {
 			};
 		case 'RESULTS_LOADING':
 			return { ...state, results: payload }; 
+		case 'QUERY_DETAILS':
+			myFeature = payload;
+			console.debug(`reduce QUERY_DETAILS, ${myFeature.attributes["PlaceName"]}`);
+			return {
+				...state,
+				details: {
+					queryFeature: myFeature
+				}
+			};
 		case 'SHOW_DETAILS':
-			const myFeature = payload;
+			myFeature = payload;
 			console.debug(`reduce SHOW_DETAILS, ${myFeature.attributes["PlaceName"]}`);
 			return {
 				...state,
 				details: {
-					feature: myFeature
+					showFeature: myFeature
 				}
 			};
 		default:
@@ -81,30 +92,12 @@ const AppContextProvider = (props) => {
 			
 			// -----------------------------------------------------------------------
 			// initialize webmap
-			const mapView = await initialize(container);
-			
-			// TODO push some of this logic into the initialize fn
-
-			await mapView.when();
-
-			const queryLayer = mapView.map.layers.find(
-			  (layer) => layer.url === appConfig.collegeLayerUrl
-			);
-		  
-			if (!queryLayer) {
-			  return;
-			}
-		  
-			await queryLayer.load();
-		  
-			queryLayer.outFields = [
-			  ...appConfig.collegeLayerOutFields,
-			  queryLayer.objectIdField,
-			];
+			const mapInit = await initialize(container, dispatch);
+			const mapView = mapInit.mapView;
 			
 			// pulled up so that we can use in other side effects
 			// const queryLayerView = await mapView.whenLayerView(queryLayer);
-			queryLayerView = await mapView.whenLayerView(queryLayer);
+			queryLayerView = await mapView.whenLayerView(mapInit.queryLayer);
 			
 			// show location on webmap
 			// showLocation(place, showMapLocation);
@@ -143,6 +136,14 @@ const AppContextProvider = (props) => {
 		}
 	// }, [state]);
 	}, [state.showMap]);
+
+	useEffect(() => {
+		const placeName = state.details.queryFeature ? 
+			state.details.queryFeature.attributes["PlaceName"] :
+			'NONE'
+		
+		console.debug(`Side effect queryFeature, ${placeName}`);
+	}, [state.details.queryFeature]);
 
 	return <AppContext.Provider value={value}>{props.children}</AppContext.Provider>;
 };

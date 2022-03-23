@@ -75,9 +75,9 @@ function App() {
 									state.results.resultFeatures.map((feature) => (
 										<button className = "item-button"
 												onClick={() => {
-													console.debug(`results.feature.onClick(), ${feature.attributes["PlaceName"]}`);
+													console.debug(`Card onClick(), ${feature.attributes["PlaceName"]}`);
 													dispatch({
-														type: 'SHOW_DETAILS',
+														type: 'QUERY_DETAILS',
 														payload: feature
 													});
 												}}>

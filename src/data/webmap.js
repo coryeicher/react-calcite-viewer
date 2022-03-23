@@ -44,12 +44,53 @@ export let view = new MapView(app);
 
 setupWidgets();
 
-export async function initialize(container) {
+export async function initialize(container, dispatch) {
 	view.container = container;
 	
 	// config.apiKey =	'REPLACE_WITH_API_KEY'
    
-	return view;
+	await view.when();
+
+	const queryLayer = view.map.layers.find(
+	  (layer) => layer.url === appConfig.collegeLayerUrl
+	);
+  
+	if (!queryLayer) {
+	  return;
+	}
+  
+	await queryLayer.load();
+  
+	queryLayer.outFields = [
+	  ...appConfig.collegeLayerOutFields,
+	  queryLayer.objectIdField,
+	];
+
+	// View clicking
+	view.on("click", async (event) => {
+		const response = await view.hitTest(event);
+
+		const results = response.results.filter(
+		(result) =>
+			result.graphic.sourceLayer?.id === queryLayer.id &&
+			!result.graphic.isAggregate
+		);
+
+		if (!results.length) {
+		return;
+		}
+
+		const graphic = results[0].graphic;
+
+		// resultClickHandler(graphic.attributes[collegeLayer.objectIdField]);
+		console.debug(`Map feature onClick(), ${graphic.attributes["PlaceName"]}`);
+		dispatch({
+			type: 'QUERY_DETAILS',
+			payload: graphic
+		});
+	});
+
+	return { mapView: view, queryLayer: queryLayer};
 }
 
 /**
