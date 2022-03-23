@@ -1,6 +1,7 @@
 import React, { useContext, useRef } from 'react';
 
 import "@esri/calcite-components/dist/components/calcite-block";
+import "@esri/calcite-components/dist/components/calcite-button";
 import "@esri/calcite-components/dist/components/calcite-card";
 import "@esri/calcite-components/dist/components/calcite-chip";
 import "@esri/calcite-components/dist/components/calcite-flow";
@@ -15,6 +16,7 @@ import "@esri/calcite-components/dist/components/calcite-tooltip";
 import "@esri/calcite-components/dist/components/calcite-tooltip-manager";
 import {
 	CalciteBlock,
+	CalciteButton,
 	CalciteCard,
 	CalciteChip,
 	CalciteFlow,
@@ -27,6 +29,7 @@ import {
 	CalciteShellCenterRow,
 	CalciteTooltip,
 	CalciteTooltipManager,
+	CalciteLabel,
   } from "@esri/calcite-components-react";
   import "@esri/calcite-components/dist/calcite/calcite.css";
 
@@ -65,19 +68,22 @@ function App() {
 				</div>
 				<CalciteShellPanel slot="primary-panel" width-scale id="primary-panel">
 					<CalciteFlow id="flow">
-						<CalcitePanel heading="Results" id="resultBlock"
-								loading={state.results.loading}
-								summary={state.results.message}>
+						<CalcitePanel 
+							heading="Results"
+							id="resultBlock"
+							loading={state.results.loading}
+							summary={state.results.message}
+							>
 							<CalcitePagination id="pagination" slot="footer">
 							</CalcitePagination>
 							<CalciteBlock open id="results">
-								{(state.results.resultFeatures) && (state.results.resultFeatures.length >= 0) ? (
-									state.results.resultFeatures.map((feature) => (
+								{(state.results.features) && (state.results.features.length >= 0) ? (
+									state.results.features.map((feature) => (
 										<button className = "item-button"
 												onClick={() => {
-													console.debug(`results.feature.onClick(), ${feature.attributes["PlaceName"]}`);
+													console.debug(`Card onClick(), ${feature.attributes["PlaceName"]}`);
 													dispatch({
-														type: 'SHOW_DETAILS',
+														type: 'QUERY_DETAILS',
 														payload: feature
 													});
 												}}>
@@ -114,6 +120,113 @@ function App() {
 								)}
 							</CalciteBlock>
 						</CalcitePanel>
+						{(state.details && state.details.attributes) ? (
+							// wrap CalcitePanel in div to avoid DOMException
+							<div>
+								<CalcitePanel
+									heading = {state.details.attributes["PlaceName"]}
+									summary = {`${state.details.attributes["Rating"]} Stars(s)`}
+									id = "detail-panel"
+									onCalcitePanelBackClick={async(e) => {
+										const view = state.results.layerView.view;
+										await view.goTo(state.details.savedExtent);
+										dispatch({
+											type: 'CLEAR_DETAILS', 
+											payload: []
+										});
+									}}>
+									<CalciteBlock
+										heading = "Restaurant Overview"
+										collapsible
+										open
+									>
+										<CalciteNotice active width="full">
+											<span id="overview-text" slot="message">
+												{(state.details.attributes["overview"]) ? state.details.attributes["overview"] : "No overview available"}
+											</span>
+										</CalciteNotice>
+										{(state.details.attributes["RestType"] && state.details.attributes["RestType"] >= 0) ? (
+											<CalciteLabel layout = "inline-space-between">
+												Restaurant Type
+												<span id="detail-type">
+													{/* TODO use config to translate code to string */}
+													{`Type ${state.details.attributes["RestType"]}`}
+												</span>
+											</CalciteLabel>
+										) : (null)}
+									</CalciteBlock>
+									<CalciteBlock
+										heading = "Location"
+										collapsible
+										open
+									>
+										<CalciteLabel layout = "inline-space-between">
+											Address
+											<span id="detail-add">
+												{state.details.attributes["Place_addr"]}
+											</span>
+										</CalciteLabel>
+										<CalciteLabel layout = "inline-space-between">
+											Latitude
+											<span id="detail-lat">
+												{state.details.attributes["Latitude"]}
+											</span>
+										</CalciteLabel>
+										<CalciteLabel layout = "inline-space-between">
+											Longitude
+											<span id="detail-lon">
+											{state.details.attributes["Longitude"]}
+											</span>
+										</CalciteLabel>
+									</CalciteBlock>
+									<CalciteBlock
+										heading = "Business Information"
+										collapsible
+										open
+									>
+										<CalciteLabel layout = "inline-space-between">
+											Rating
+											<span id="detail-rat">
+												{`${state.details.attributes["Rating"]} Stars(s)`}
+											</span>
+										</CalciteLabel>
+										<CalciteLabel layout = "inline-space-between">
+											Restaurant Type
+											<span id="detail-typ">
+												{`Type ${state.details.attributes["RestType"]}`}
+											</span>
+										</CalciteLabel>
+										<CalciteLabel layout = "inline-space-between">
+											Has Seating
+											<span id="detail-has">
+												{`${parseInt(state.details.attributes["HasSeating"]) === 0 ? "Yes" : "No"}`}
+											</span>
+										</CalciteLabel>
+										<CalciteLabel layout = "inline-space-between">
+											Seats
+											<span id="detail-num">
+											{state.details.attributes["NumSeats"]}
+											</span>
+										</CalciteLabel>
+									</CalciteBlock>
+									{(state.details.attributes["FileRoot"]) ? (
+										<CalciteButton
+											id = "detail-website-link"
+											iconEnd = "launch"
+											slot = "footer-actions"
+											scale = "l"
+											width = "full"
+											innerText = "StreetView Image"
+											href = {`https://www.eichcorp.com/views/${state.details.attributes["FileRoot"]}_pic.jpg`}
+											rel = "noref noreferrer"
+											target = "blank"
+										></CalciteButton>
+									) : (null)}
+								</CalcitePanel>
+							</div>
+						) : (
+							null
+						)}
 					</CalciteFlow>
 				</CalciteShellPanel>
 				<CalciteShellCenterRow height-scale="l" position="end">
