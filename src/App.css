@@ -47,9 +47,9 @@ calcite-card {
 }
 
 body {
-  --calcite-ui-brand: purple;
-  --calcite-ui-brand-hover: rgb(94, 0, 94);
-  --calcite-ui-brand-press: rgb(87, 0, 87);
+  --calcite-ui-brand: #CCB300;
+  --calcite-ui-brand-hover: #67686a;
+  --calcite-ui-brand-press: ##c7c8c9;
 }
 
 body.calcite-theme-dark {

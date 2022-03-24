@@ -1,7 +1,5 @@
 import React, { useContext, useRef } from 'react';
 
-// import { _map } from 'lodash/_Map';
-
 import "@esri/calcite-components/dist/components/calcite-action";
 import "@esri/calcite-components/dist/components/calcite-block";
 import "@esri/calcite-components/dist/components/calcite-block-section";
@@ -45,25 +43,10 @@ import {
   } from "@esri/calcite-components-react";
   import "@esri/calcite-components/dist/calcite/calcite.css";
 
-// import AppBar from '@material-ui/core/AppBar';
-// import Grid from '@material-ui/core/Grid';
-// import Toolbar from '@material-ui/core/Toolbar';
-// import Typography from '@material-ui/core/Typography';
-// import Container from '@material-ui/core/Container';
-// import List from '@material-ui/core/List';
-// import ListItem from '@material-ui/core/ListItem';
-// import ListItemText from '@material-ui/core/ListItemText';
-// // import TextField from '@material-ui/core/TextField';
-// // import Autocomplete from '@mui/material/Autocomplete'
-
-import { Apartment, ArrowBack, Check, PanoramaFishEyeOutlined } from '@material-ui/icons';
-
+import { appConfig } from "./config.js";
 import { AppContext } from './AppContext';
 
 import './App.css';
-// import { Tooltip } from '@material-ui/core';
-
-import { appConfig } from "./config.js";
 
 function App() {
 	const { state, dispatch } = useContext(AppContext);
@@ -73,8 +56,7 @@ function App() {
 		<CalciteTooltipManager>
 			<CalciteShell className="calcite-presentation" content-behind id="shell">
 				<div className="temporary-header" slot="header">
-					{/* <CalciteIcon icon="globe" scale="l"></CalciteIcon> */}
-					<CalciteIcon icon="globe"/>
+					<img src=".\EICHCORPICON.svg" height="32px"/>
 					RestaurantFinder
 					{/* <calcite-action-pad layout="horizontal" expand-disabled>
 						<calcite-action id="themeToggle" text="Light" icon="brightness"></calcite-action>
@@ -300,41 +282,6 @@ function App() {
 			</CalciteShell>
 			<CalciteTooltip reference-element="reset">Reset filters</CalciteTooltip>
 		</CalciteTooltipManager>
-
-		// <Container maxWidth="lg" className="app-container">
-		// 	<Container maxWidth={state.showMap ? 'lg' : 'sm'} className="app-container">
-		// 		{/* note: id is required here to show map when page loads */}
-		// 		<div className="mapDiv" ref={mapRef} id="myMapDiv">
-		// 			{state.showMap ? (
-		// 				[]
-		// 			) : (
-		// 				<List>
-		// 					{state.places.map((place) => (
-		// 						<ListItem
-		// 							button
-		// 							onClick={() => {
-		// 								dispatch({
-		// 									type: 'SHOW_MAP',
-		// 									payload: {
-		// 										showMap: true,
-		// 										place,
-		// 										container: mapRef.current,
-		// 									},
-		// 								});
-		// 							}}
-		// 							key={place.attributes.Place_addr}
-		// 						>
-		// 							<ListItemText
-		// 								primary={place.attributes.PlaceName}
-		// 								secondary={place.attributes.Place_addr}
-		// 							/>
-		// 						</ListItem>
-		// 					))}
-		// 				</List>
-		// 			)}
-		// 		</div>
-		// 	</Container>
-		// </Container>
 	);
 }
 
