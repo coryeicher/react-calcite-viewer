@@ -1,55 +1,52 @@
 import React, { useContext, useRef } from 'react';
 
+import "@esri/calcite-components/dist/components/calcite-action";
 import "@esri/calcite-components/dist/components/calcite-block";
+import "@esri/calcite-components/dist/components/calcite-block-section";
 import "@esri/calcite-components/dist/components/calcite-button";
 import "@esri/calcite-components/dist/components/calcite-card";
 import "@esri/calcite-components/dist/components/calcite-chip";
 import "@esri/calcite-components/dist/components/calcite-flow";
 import "@esri/calcite-components/dist/components/calcite-icon";
+import "@esri/calcite-components/dist/components/calcite-option";
 import "@esri/calcite-components/dist/components/calcite-notice";
 import "@esri/calcite-components/dist/components/calcite-pagination";
 import "@esri/calcite-components/dist/components/calcite-panel";
+import "@esri/calcite-components/dist/components/calcite-select";
 import "@esri/calcite-components/dist/components/calcite-shell";
 import "@esri/calcite-components/dist/components/calcite-shell-panel";
 import "@esri/calcite-components/dist/components/calcite-shell-center-row";
+import "@esri/calcite-components/dist/components/calcite-slider";
 import "@esri/calcite-components/dist/components/calcite-tooltip";
 import "@esri/calcite-components/dist/components/calcite-tooltip-manager";
 import {
+	CalciteAction,
 	CalciteBlock,
+	CalciteBlockSection,
 	CalciteButton,
 	CalciteCard,
 	CalciteChip,
 	CalciteFlow,
 	CalciteIcon,
+	CalciteOption,
 	CalciteNotice,
 	CalcitePagination,
 	CalcitePanel,
+	CalciteSelect,
 	CalciteShell,
 	CalciteShellPanel,
 	CalciteShellCenterRow,
+	CalciteSlider,
 	CalciteTooltip,
 	CalciteTooltipManager,
 	CalciteLabel,
   } from "@esri/calcite-components-react";
   import "@esri/calcite-components/dist/calcite/calcite.css";
 
-// import AppBar from '@material-ui/core/AppBar';
-// import Grid from '@material-ui/core/Grid';
-// import Toolbar from '@material-ui/core/Toolbar';
-// import Typography from '@material-ui/core/Typography';
-// import Container from '@material-ui/core/Container';
-// import List from '@material-ui/core/List';
-// import ListItem from '@material-ui/core/ListItem';
-// import ListItemText from '@material-ui/core/ListItemText';
-// // import TextField from '@material-ui/core/TextField';
-// // import Autocomplete from '@mui/material/Autocomplete'
-
-import { Apartment, ArrowBack, Check, PanoramaFishEyeOutlined } from '@material-ui/icons';
-
+import { appConfig } from "./config.js";
 import { AppContext } from './AppContext';
 
 import './App.css';
-// import { Tooltip } from '@material-ui/core';
 
 function App() {
 	const { state, dispatch } = useContext(AppContext);
@@ -59,8 +56,7 @@ function App() {
 		<CalciteTooltipManager>
 			<CalciteShell className="calcite-presentation" content-behind id="shell">
 				<div className="temporary-header" slot="header">
-					{/* <CalciteIcon icon="globe" scale="l"></CalciteIcon> */}
-					<CalciteIcon icon="globe"/>
+					<img src=".\EICHCORPICON.svg" height="32px"/>
 					RestaurantFinder
 					{/* <calcite-action-pad layout="horizontal" expand-disabled>
 						<calcite-action id="themeToggle" text="Light" icon="brightness"></calcite-action>
@@ -123,10 +119,9 @@ function App() {
 						{(state.details && state.details.attributes) ? (
 							// wrap CalcitePanel in div to avoid DOMException
 							<div>
-								<CalcitePanel
+								<CalcitePanel id = "detail-panel"
 									heading = {state.details.attributes["PlaceName"]}
 									summary = {`${state.details.attributes["Rating"]} Stars(s)`}
-									id = "detail-panel"
 									onCalcitePanelBackClick={async(e) => {
 										const view = state.results.layerView.view;
 										await view.goTo(state.details.savedExtent);
@@ -241,44 +236,52 @@ function App() {
 						)]}
 					</div>
 				</CalciteShellCenterRow>
+				<CalciteShellPanel slot="contextual-panel" detached>
+					<CalciteBlock id="filters" heading="Filters" collapsible>
+						<CalciteAction id="reset" icon="reset" slot="icon" hidden></CalciteAction>
+						<CalciteBlock heading="Basics" open>
+						<CalciteLabel>
+							Restaurant type
+							<CalciteSelect id="restaurantType">
+								<CalciteOption value="all">All</CalciteOption>
+								{appConfig.restaurantTypes.map((typeObj) => (
+									// hacky and not so pretty
+									<CalciteOption value={`${Object.keys(typeObj)[0]}`}>{Object.values(typeObj)[0]}</CalciteOption>
+								))}
+							</CalciteSelect>
+						</CalciteLabel>
+						<CalciteLabel>
+							Rating
+							<div id="ratingType">
+							{appConfig.ratingTypes.map((typeObj) => (
+								<CalciteChip
+									tabIndex = "0"
+									// dataset-type instead?
+									data-type = "type" 
+									value = {typeObj}
+									scale = "s"
+								>
+									{`${typeObj} stars()`}
+								</CalciteChip>
+							))}
+							</div>
+						</CalciteLabel>
+						</CalciteBlock>
+						<CalciteBlock heading="Seating" open>
+							<CalciteBlockSection id="seatingSection" text="Offers seating" toggle-display="switch">
+								<CalciteLabel>
+									Number of seats
+									<CalciteSlider id="seating" range label-handles min-value="0" max-value="75" min="0" max="75"
+									step="40">
+									</CalciteSlider>
+								</CalciteLabel>
+							</CalciteBlockSection>
+						</CalciteBlock>
+					</CalciteBlock>
+				</CalciteShellPanel>
 			</CalciteShell>
 			<CalciteTooltip reference-element="reset">Reset filters</CalciteTooltip>
 		</CalciteTooltipManager>
-
-		// <Container maxWidth="lg" className="app-container">
-		// 	<Container maxWidth={state.showMap ? 'lg' : 'sm'} className="app-container">
-		// 		{/* note: id is required here to show map when page loads */}
-		// 		<div className="mapDiv" ref={mapRef} id="myMapDiv">
-		// 			{state.showMap ? (
-		// 				[]
-		// 			) : (
-		// 				<List>
-		// 					{state.places.map((place) => (
-		// 						<ListItem
-		// 							button
-		// 							onClick={() => {
-		// 								dispatch({
-		// 									type: 'SHOW_MAP',
-		// 									payload: {
-		// 										showMap: true,
-		// 										place,
-		// 										container: mapRef.current,
-		// 									},
-		// 								});
-		// 							}}
-		// 							key={place.attributes.Place_addr}
-		// 						>
-		// 							<ListItemText
-		// 								primary={place.attributes.PlaceName}
-		// 								secondary={place.attributes.Place_addr}
-		// 							/>
-		// 						</ListItem>
-		// 					))}
-		// 				</List>
-		// 			)}
-		// 		</div>
-		// 	</Container>
-		// </Container>
 	);
 }
 

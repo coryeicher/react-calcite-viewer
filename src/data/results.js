@@ -63,7 +63,7 @@ export async function queryItems(layerView, dispatch, start = 0) {
 
 function notifyHasResults(resultFeatures, msg, resultLayerView, dispatch) {
 
-    // T"ODO for clarity:
+    // TODO for clarity:
     //  rename type and re-use
     //  refactor notify functions (use 1 fn?) and re-use
 

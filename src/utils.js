@@ -12,21 +12,21 @@ export function handleCasing(string) {
 export function whereClause() {
   let where = appConfig.defaultWhereClause;
 
-  if (appState.housing?.enabled) {
+  if (appState.seating?.enabled) {
     where += combineSQLStatements(where, `HasSeating=1`);
     where += combineSQLStatements(
       where,
-      `NumSeats > ${appState.housing.min}`
+      `NumSeats > ${appState.seating.min}`
     );
     where += combineSQLStatements(
       where,
-      `NumSeats < ${appState.housing.max}`
+      `NumSeats < ${appState.seating.max}`
     );
   }
 
-  if (appState.activeProgramTypes.length > 0) {
+  if (appState.activeRatingTypes.length > 0) {
     let schoolWhere = "";
-    const values = appState.activeProgramTypes.flat();
+    const values = appState.activeRatingTypes.flat();
     values.forEach(
       (value) =>
         (schoolWhere += combineSQLStatements(
@@ -39,11 +39,11 @@ export function whereClause() {
   }
 
   // TODO should be getting this from state instead
-  const schoolTypeNode = document.getElementById("schoolType");
+  const restaurantTypeNode = document.getElementById("restaurantType");
 
-  const schoolTypeValue = schoolTypeNode ? schoolTypeNode.value : undefined;
-  if (schoolTypeValue && schoolTypeValue !== appConfig.defaultSchoolType) {
-    const values = schoolTypeValue.split(",");
+  const restaurantTypeValue = restaurantTypeNode ? restaurantTypeNode.value : undefined;
+  if (restaurantTypeValue && restaurantTypeValue !== appConfig.defaultRestaurantType) {
+    const values = restaurantTypeValue.split(",");
     let schoolWhere = "";
     values.forEach(
       (value) =>
