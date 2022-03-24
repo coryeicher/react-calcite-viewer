@@ -50,7 +50,7 @@ export async function initialize(container, dispatch) {
 	await view.when();
 
 	const queryLayer = view.map.layers.find(
-	  (layer) => layer.url === appConfig.collegeLayerUrl
+	  (layer) => layer.url === appConfig.queryLayerUrl
 	);
   
 	if (!queryLayer) {
@@ -80,7 +80,6 @@ export async function initialize(container, dispatch) {
 
 		const graphic = results[0].graphic;
 
-		// resultClickHandler(graphic.attributes[collegeLayer.objectIdField]);
 		console.debug(`Map feature onClick(), ${graphic.attributes["PlaceName"]}`);
 		dispatch({
 			type: 'QUERY_DETAILS',

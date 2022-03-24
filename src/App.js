@@ -242,9 +242,9 @@ function App() {
 						<CalciteBlock heading="Basics" open>
 						<CalciteLabel>
 							Restaurant type
-							<CalciteSelect id="schoolType">
+							<CalciteSelect id="restaurantType">
 								<CalciteOption value="all">All</CalciteOption>
-								{appConfig.schoolTypes.map((typeObj) => (
+								{appConfig.restaurantTypes.map((typeObj) => (
 									// hacky and not so pretty
 									<CalciteOption value={`${Object.keys(typeObj)[0]}`}>{Object.values(typeObj)[0]}</CalciteOption>
 								))}
@@ -252,8 +252,8 @@ function App() {
 						</CalciteLabel>
 						<CalciteLabel>
 							Rating
-							<div id="programType">
-							{appConfig.programTypes.map((typeObj) => (
+							<div id="ratingType">
+							{appConfig.ratingTypes.map((typeObj) => (
 								<CalciteChip
 									tabIndex = "0"
 									// dataset-type instead?
@@ -268,10 +268,10 @@ function App() {
 						</CalciteLabel>
 						</CalciteBlock>
 						<CalciteBlock heading="Seating" open>
-							<CalciteBlockSection id="housingSection" text="Offers seating" toggle-display="switch">
+							<CalciteBlockSection id="seatingSection" text="Offers seating" toggle-display="switch">
 								<CalciteLabel>
 									Number of seats
-									<CalciteSlider id="housing" range label-handles min-value="0" max-value="75" min="0" max="75"
+									<CalciteSlider id="seating" range label-handles min-value="0" max-value="75" min="0" max="75"
 									step="40">
 									</CalciteSlider>
 								</CalciteLabel>

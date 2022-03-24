@@ -5,7 +5,7 @@ export const appState = {
   activeItem: false,
   savedExtent: null,
   hasFilterChanges: false,
-  housing: { enabled: false, min: 0, max: 75 },
-  activeProgramTypes: [],
+  seating: { enabled: false, min: 0, max: 75 },
+  activeRatingTypes: [],
   theme: "light",
 };
