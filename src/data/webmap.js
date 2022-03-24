@@ -14,8 +14,6 @@ import Search from '@arcgis/core/widgets/Search'
 
 import '@arcgis/core/assets/esri/themes/light/main.css';
 
-import { coffee } from './images';
-import { isEmpty } from 'lodash';
 import { appConfig } from '.././config.js';
 
 const symbol = {

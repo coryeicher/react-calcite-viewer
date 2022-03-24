@@ -1,6 +1,5 @@
 import React, { createContext, useEffect, useReducer } from 'react';
 
-import { placeLocator } from './data/locator';
 import { appConfig } from "./config.js";
 import { appState } from "./state.js";
 import { queryDetails } from './data/details';
