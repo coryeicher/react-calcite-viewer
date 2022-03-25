@@ -242,7 +242,14 @@ function App() {
 						<CalciteBlock heading="Basics" open>
 						<CalciteLabel>
 							Restaurant type
-							<CalciteSelect id="restaurantType">
+							<CalciteSelect id="restaurantType"
+								onCalciteSelectChange={(e) => {
+									dispatch({
+										type: 'HAS_FILTER_CHANGES', 
+										payload: {
+											restaurantTypes: e.target.value }
+									});
+								}}>
 								<CalciteOption value="all">All</CalciteOption>
 								{appConfig.restaurantTypes.map((typeObj) => (
 									// hacky and not so pretty
@@ -260,7 +267,19 @@ function App() {
 									data-type = "type" 
 									value = {typeObj}
 									scale = "s"
-								>
+									onClick={(e) => {
+										// use "blue" for selected
+										e.target.color = (e.target.color === "grey") ? "blue" : "grey";
+										dispatch({
+											type: 'HAS_FILTER_CHANGES', 
+											payload: {
+												ratingType: {
+													value: typeObj,
+													selected: e.target.color === "blue"
+												}
+											}
+										});
+									}}>
 									{`${typeObj} stars()`}
 								</CalciteChip>
 							))}
@@ -268,11 +287,38 @@ function App() {
 						</CalciteLabel>
 						</CalciteBlock>
 						<CalciteBlock heading="Seating" open>
-							<CalciteBlockSection id="seatingSection" text="Offers seating" toggle-display="switch">
+							<CalciteBlockSection id="seatingSection" text="Offers seating" toggle-display="switch"
+								onCalciteBlockSectionToggle={(e) => {
+									dispatch({
+										type: 'HAS_FILTER_CHANGES', 
+										payload: {
+											seatingEnabled: e.target.open
+										}
+									});
+								}}>
 								<CalciteLabel>
 									Number of seats
-									<CalciteSlider id="seating" range label-handles min-value="0" max-value="75" min="0" max="75"
-									step="40">
+									{/* TODO constrain slider to integer values */}
+									<CalciteSlider id="seating" range label-handles min="0" max="80" steps="40"
+										min-value={state.filters.seats.min}
+										max-value={state.filters.seats.max}
+										// seemingly not needed, but if we keep need to dispatch event which calls filterMap()
+										// onCalciteSliderInput={(e) => {
+										// 	dispatch({
+										// 		type: 'HAS_FILTER_CHANGES', 
+										// 		payload: {
+										// 			seats: { min: e.target.minValue, max: e.target.maxValue }
+										// 		}
+										// 	});
+										// }}
+										onCalciteSliderChange={(e) => {
+											dispatch({
+												type: 'HAS_FILTER_CHANGES', 
+												payload: {
+													seats: { min: e.target.minValue, max: e.target.maxValue }
+												}
+											});
+										}}>
 									</CalciteSlider>
 								</CalciteLabel>
 							</CalciteBlockSection>

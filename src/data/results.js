@@ -13,7 +13,7 @@ const paginationNode = document.getElementById("pagination");
 // const resetNode = document.getElementById("reset");
 const resultsNode = document.getElementById("results");
 
-export async function queryItems(layerView, dispatch, start = 0) {
+export async function queryItems(layerView, filters, dispatch, start = 0) {
     // resetNode.hidden = !appState.hasFilterChanges;
     // resetNode.indicator = appState.hasFilterChanges;
 
