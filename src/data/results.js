@@ -8,17 +8,11 @@ import { AppContext } from '.././AppContext';
 import { handleCasing, whereClause } from '.././utils.js';
 
 // TODO replace these element references with state updates
-const paginationNode = document.getElementById("pagination");
-// TODO also, resetNode is part of the filters UI
-// const resetNode = document.getElementById("reset");
-const resultsNode = document.getElementById("results");
+// const paginationNode = document.getElementById("pagination");
 
 export async function queryItems(layerView, filters, dispatch, start = 0) {
     console.debug('queryItems');
     
-    // resetNode.hidden = !appState.hasFilterChanges;
-    // resetNode.indicator = appState.hasFilterChanges;
-
     if (!layerView) {
       return;
     }

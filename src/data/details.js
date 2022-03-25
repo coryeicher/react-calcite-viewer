@@ -43,9 +43,6 @@ export async function queryDetails(layerView, queryFeature, dispatch) {
 
 function notifyHasDetails(featureAttributes, extent, dispatch) {
 
-    // TODO hide filters node
-    // idea: filters.visible = !state.details.activeItem 
-
     dispatch({
         type: 'HAS_DETAILS', 
         payload: {

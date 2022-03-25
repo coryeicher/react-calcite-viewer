@@ -70,8 +70,8 @@ function App() {
 							loading={state.results.loading}
 							summary={state.results.message}
 							>
-							<CalcitePagination id="pagination" slot="footer">
-							</CalcitePagination>
+							{/* <CalcitePagination id="pagination" slot="footer">
+							</CalcitePagination> */}
 							<CalciteBlock open id="results">
 								{(state.results.features) && (state.results.features.length >= 0) ? (
 									state.results.features.map((feature) => (
@@ -237,7 +237,10 @@ function App() {
 					</div>
 				</CalciteShellCenterRow>
 				<CalciteShellPanel slot="contextual-panel" detached>
-					<CalciteBlock id="filters" heading="Filters" collapsible>
+					<CalciteBlock
+						id="filters"
+						heading="Filters"collapsible
+						hidden={state.details.activeItem}>
 						<CalciteAction id="reset" icon="reset" slot="icon"
 							hidden={!state.filters.hasChanges}
 							indicator={state.filters.hasChanges}
