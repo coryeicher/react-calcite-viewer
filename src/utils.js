@@ -12,7 +12,8 @@ export function handleCasing(string) {
 export function whereClause(filters) {
   let where = appConfig.defaultWhereClause;
 
-  if (filters.seatingEnabled) {
+  // only include term if true, otherwise leave wide open
+  if (filters.seatingEnabled === true) {
     where += combineSQLStatements(where, `HasSeating=1`);
     where += combineSQLStatements(
       where,

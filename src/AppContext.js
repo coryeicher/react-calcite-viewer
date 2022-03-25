@@ -1,4 +1,5 @@
 import React, { createContext, useEffect, useReducer } from 'react';
+import _isUndefined from 'lodash/isUndefined'
 
 import { appConfig } from "./config.js";
 import { appState } from "./state.js";
@@ -106,7 +107,7 @@ function reducer(state, { type, payload }) {
 			const newFilters = {
 				restaurantTypes: payload.restaurantTypes || state.filters.restaurantTypes,
 				ratingTypes: newRatingTypes,
-				seatingEnabled: payload.seatingEnabled || state.filters.seatingEnabled,
+				seatingEnabled: !_isUndefined(payload.seatingEnabled) ? payload.seatingEnabled : state.filters.seatingEnabled,
 				seats: payload.seats || state.filters.seats
 			}
 
