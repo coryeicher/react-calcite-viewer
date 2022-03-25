@@ -82,10 +82,21 @@ function reducer(state, { type, payload }) {
 			console.debug(`reduce HAS_FILTER_CHANGES`);
 
 			let newRatingTypes = state.filters.ratingTypes;
+			// if (payload.ratingType) {
+			// 	if (!newRatingTypes.includes(payload.ratingType.value)) {
+			// 		// add rating type
+			// 		newRatingTypes.push(payload.ratingType.value);
+			// 	} else {
+			// 		// remove rating type
+			// 		newRatingTypes = newRatingTypes.filter((item) => item !== payload.ratingType.value);
+			// 	}
+			// }
 			if (payload.ratingType) {
-				if (!newRatingTypes.includes(payload.ratingType.value)) {
-					// add rating type
-					newRatingTypes.push(payload.ratingType.value);
+				if (payload.ratingType.selected) {
+					if (!newRatingTypes.includes(payload.ratingType.value)) {
+						// add rating type
+						newRatingTypes.push(payload.ratingType.value);
+					}
 				} else {
 					// remove rating type
 					newRatingTypes = newRatingTypes.filter((item) => item !== payload.ratingType.value);

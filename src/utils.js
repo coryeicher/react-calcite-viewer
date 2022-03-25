@@ -26,7 +26,7 @@ export function whereClause(filters) {
 
   if (filters.ratingTypes.length > 0) {
     let typeWhere = "";
-    const values = filters.ratingType.flat();
+    const values = filters.ratingTypes.flat();
     values.forEach(
       (value) =>
         (typeWhere += combineSQLStatements(
