@@ -238,7 +238,15 @@ function App() {
 				</CalciteShellCenterRow>
 				<CalciteShellPanel slot="contextual-panel" detached>
 					<CalciteBlock id="filters" heading="Filters" collapsible>
-						<CalciteAction id="reset" icon="reset" slot="icon" hidden></CalciteAction>
+						<CalciteAction id="reset" icon="reset" slot="icon"
+							hidden={!state.filters.hasChanges}
+							indicator={state.filters.hasChanges}
+							onClick={() => {
+								dispatch({
+									type: 'CLEAR_FILTERS', 
+									payload: []
+								});
+							}}/>
 						<CalciteBlock heading="Basics" open>
 						<CalciteLabel>
 							Restaurant type

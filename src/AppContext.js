@@ -108,12 +108,18 @@ function reducer(state, { type, payload }) {
 				restaurantTypes: payload.restaurantTypes || state.filters.restaurantTypes,
 				ratingTypes: newRatingTypes,
 				seatingEnabled: !_isUndefined(payload.seatingEnabled) ? payload.seatingEnabled : state.filters.seatingEnabled,
-				seats: payload.seats || state.filters.seats
+				seats: payload.seats || state.filters.seats,
+				hasChanges: true
 			}
 
 			return {
 				...state,
 				filters: newFilters
+			};
+		case 'CLEAR_FILTERS':
+			return {
+				...state,
+				filters: initialState.filters
 			};
 		default:
 			return state;
