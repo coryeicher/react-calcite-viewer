@@ -1,5 +1,5 @@
 import { appConfig } from "./config.js";
-import { appState } from "./state.js";
+// import { appState } from "./state.js";
 
 export function handleCasing(string) {
   return string
@@ -9,51 +9,50 @@ export function handleCasing(string) {
     .join(" ");
 }
 
-export function whereClause() {
+export function whereClause(filters) {
   let where = appConfig.defaultWhereClause;
 
-  if (appState.seating?.enabled) {
+  // only include term if true, otherwise leave wide open
+  if (filters.seatingEnabled === true) {
     where += combineSQLStatements(where, `HasSeating=1`);
     where += combineSQLStatements(
       where,
-      `NumSeats > ${appState.seating.min}`
+      `NumSeats > ${filters.seats.min}`
     );
     where += combineSQLStatements(
       where,
-      `NumSeats < ${appState.seating.max}`
+      `NumSeats < ${filters.seats.max}`
     );
   }
 
-  if (appState.activeRatingTypes.length > 0) {
-    let schoolWhere = "";
-    const values = appState.activeRatingTypes.flat();
+  if (filters.ratingTypes.length > 0) {
+    let typeWhere = "";
+    const values = filters.ratingTypes.flat();
     values.forEach(
       (value) =>
-        (schoolWhere += combineSQLStatements(
-          schoolWhere,
+        (typeWhere += combineSQLStatements(
+          typeWhere,
           `Rating = ${value}`,
           "OR"
         ))
     );
-    where += combineSQLStatements(where, schoolWhere);
+    where += combineSQLStatements(where, typeWhere);
   }
 
-  // TODO should be getting this from state instead
-  const restaurantTypeNode = document.getElementById("restaurantType");
-
-  const restaurantTypeValue = restaurantTypeNode ? restaurantTypeNode.value : undefined;
-  if (restaurantTypeValue && restaurantTypeValue !== appConfig.defaultRestaurantType) {
-    const values = restaurantTypeValue.split(",");
-    let schoolWhere = "";
+  // filters.restaurantTypes is comma delim string, but control
+  //    does not support multi-select at this time
+  if (filters.restaurantTypes && filters.restaurantTypes != appConfig.defaultRestaurantType) {
+    const values = filters.restaurantTypes.split(",");
+    let typeWhere = "";
     values.forEach(
       (value) =>
-        (schoolWhere += combineSQLStatements(
-          schoolWhere,
+        (typeWhere += combineSQLStatements(
+          typeWhere,
           `RestType = ${value}`,
           "OR"
         ))
     );
-    where += combineSQLStatements(where, schoolWhere);
+    where += combineSQLStatements(where, typeWhere);
   }
 
   return where;

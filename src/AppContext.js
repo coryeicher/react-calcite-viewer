@@ -1,8 +1,10 @@
 import React, { createContext, useEffect, useReducer } from 'react';
+import _isUndefined from 'lodash/isUndefined'
 
 import { appConfig } from "./config.js";
 import { appState } from "./state.js";
 import { queryDetails } from './data/details';
+import { queryItems } from './data/results';
 
 export const AppContext = createContext();
 
@@ -22,7 +24,13 @@ export const initialState = {
 	results: {
 		loading: true
 	},
-	details: {}
+	details: {},
+	filters: {
+		restaurantTypes: null, // comma delim string
+		ratingTypes: [],
+		seatingEnabled: false,
+		seats: { min: 0, max: 80 }
+	}
 };
 
 let initialResults = [];
@@ -49,7 +57,6 @@ function reducer(state, { type, payload }) {
 			return { ...state, results: payload }; 
 		case 'QUERY_DETAILS':
 			myFeature = payload;
-			// console.debug(`reduce QUERY_DETAILS, ${myFeature.attributes["PlaceName"]}`);
 			return {
 				...state,
 				details: {
@@ -57,7 +64,6 @@ function reducer(state, { type, payload }) {
 				}
 			};
 		case 'HAS_DETAILS':
-			// console.debug(`reduce HAS_DETAILS, ${payload.attributes["PlaceName"]}`);
 			return {
 				...state,
 				details: {
@@ -68,11 +74,52 @@ function reducer(state, { type, payload }) {
 				}
 			};
 		case 'CLEAR_DETAILS':
-			// console.debug(`reduce HAS_DETAILS, ${payload.attributes["PlaceName"]}`);
 			// revert details savedExtent and activeItem
 			return {
 				...state,
 				details: initialState.details
+			};
+		case 'HAS_FILTER_CHANGES':
+			console.debug(`reduce HAS_FILTER_CHANGES`);
+
+			let newRatingTypes = state.filters.ratingTypes;
+			// if (payload.ratingType) {
+			// 	if (!newRatingTypes.includes(payload.ratingType.value)) {
+			// 		// add rating type
+			// 		newRatingTypes.push(payload.ratingType.value);
+			// 	} else {
+			// 		// remove rating type
+			// 		newRatingTypes = newRatingTypes.filter((item) => item !== payload.ratingType.value);
+			// 	}
+			// }
+			if (payload.ratingType) {
+				if (payload.ratingType.selected) {
+					if (!newRatingTypes.includes(payload.ratingType.value)) {
+						// add rating type
+						newRatingTypes.push(payload.ratingType.value);
+					}
+				} else {
+					// remove rating type
+					newRatingTypes = newRatingTypes.filter((item) => item !== payload.ratingType.value);
+				}
+			}
+
+			const newFilters = {
+				restaurantTypes: payload.restaurantTypes || state.filters.restaurantTypes,
+				ratingTypes: newRatingTypes,
+				seatingEnabled: !_isUndefined(payload.seatingEnabled) ? payload.seatingEnabled : state.filters.seatingEnabled,
+				seats: payload.seats || state.filters.seats,
+				hasChanges: true
+			}
+
+			return {
+				...state,
+				filters: newFilters
+			};
+		case 'CLEAR_FILTERS':
+			return {
+				...state,
+				filters: initialState.filters
 			};
 		default:
 			return state;
@@ -113,7 +160,7 @@ const AppContextProvider = (props) => {
 			const { queryItems } = await import('./data/results')
 
 			// View extent changes
-			mapView.watch("center", () => !appState.activeItem && queryItems(queryLayerView, dispatch));
+			mapView.watch("center", () => !appState.activeItem && queryItems(queryLayerView, state.filters, dispatch));
 
 			// ------------------------------------------------------------------------
 			// initialize results
@@ -123,7 +170,7 @@ const AppContextProvider = (props) => {
 			//	solutions
 			// here is a place to start :(
 			// https://www.pluralsight.com/guides/different-ways-to-dispatch-actions-with-redux
-			queryItems(queryLayerView, dispatch);
+			queryItems(queryLayerView, state.filters, dispatch);
 		};
 		const loadPlaces = async(places) => {
 			console.log(`loadPlaces()... places.length=${places.length}`);
@@ -171,6 +218,10 @@ const AppContextProvider = (props) => {
 		}
 		loadAndQueryDetails();
 	}, [state.details.queryFeature]);
+
+	useEffect(() => {	
+		queryItems(state.results.layerView, state.filters, dispatch);
+	}, [state.filters]);
 
 	return <AppContext.Provider value={value}>{props.children}</AppContext.Provider>;
 };

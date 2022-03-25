@@ -13,7 +13,9 @@ const paginationNode = document.getElementById("pagination");
 // const resetNode = document.getElementById("reset");
 const resultsNode = document.getElementById("results");
 
-export async function queryItems(layerView, dispatch, start = 0) {
+export async function queryItems(layerView, filters, dispatch, start = 0) {
+    console.debug('queryItems');
+    
     // resetNode.hidden = !appState.hasFilterChanges;
     // resetNode.indicator = appState.hasFilterChanges;
 
@@ -24,7 +26,7 @@ export async function queryItems(layerView, dispatch, start = 0) {
 
     notifyResultsLoading(true, "", dispatch);
 
-    const where = whereClause();
+    const where = whereClause(filters);
 
     layerView.featureEffect = {
       filter: {
@@ -40,17 +42,17 @@ export async function queryItems(layerView, dispatch, start = 0) {
         geometry: view.extent.clone(),
         where,
       });
-      paginationNode.total = appState.count;
-      paginationNode.start = 1;
+      // paginationNode.total = appState.count;
+      // paginationNode.start = 1;
     }
 
-    paginationNode.hidden = appState.count <= appConfig.pageNum;
+    // paginationNode.hidden = appState.count <= appConfig.pageNum;
 
     const results = await layerView.queryFeatures({
       start,
       num: appConfig.pageNum,
       geometry: view.extent.clone(),
-      where: whereClause(),
+      where: whereClause(filters),
       outFields: [
         ...appConfig.layerOutFields,
         layerView.layer.objectIdField,
