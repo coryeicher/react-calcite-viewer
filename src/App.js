@@ -247,7 +247,7 @@ function App() {
 									dispatch({
 										type: 'HAS_FILTER_CHANGES', 
 										payload: {
-											restaurantTypes: e.target.value }
+											restaurantTypes: e.target.selectedOption.value }
 									});
 								}}>
 								<CalciteOption value="all">All</CalciteOption>

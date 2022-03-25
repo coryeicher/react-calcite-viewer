@@ -3,6 +3,7 @@ import React, { createContext, useEffect, useReducer } from 'react';
 import { appConfig } from "./config.js";
 import { appState } from "./state.js";
 import { queryDetails } from './data/details';
+import { queryItems } from './data/results';
 
 export const AppContext = createContext();
 
@@ -24,7 +25,7 @@ export const initialState = {
 	},
 	details: {},
 	filters: {
-		restaurantTypes: [],
+		restaurantTypes: null, // comma delim string
 		ratingTypes: [],
 		seatingEnabled: false,
 		seats: { min: 0, max: 80 }
@@ -151,7 +152,7 @@ const AppContextProvider = (props) => {
 			//	solutions
 			// here is a place to start :(
 			// https://www.pluralsight.com/guides/different-ways-to-dispatch-actions-with-redux
-			queryItems(queryLayerView, state.filtesr, dispatch);
+			queryItems(queryLayerView, state.filters, dispatch);
 		};
 		const loadPlaces = async(places) => {
 			console.log(`loadPlaces()... places.length=${places.length}`);
@@ -199,6 +200,10 @@ const AppContextProvider = (props) => {
 		}
 		loadAndQueryDetails();
 	}, [state.details.queryFeature]);
+
+	useEffect(() => {	
+		queryItems(state.results.layerView, state.filters, dispatch);
+	}, [state.filters]);
 
 	return <AppContext.Provider value={value}>{props.children}</AppContext.Provider>;
 };
