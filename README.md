@@ -1,6 +1,16 @@
 ## About
 
-This GIS viewer is based on React and Esri's calcite components
+Live Demo: [https://www.eichcorp.com/business-viewer/](https://www.eichcorp.com/business-viewer/)
+
+### Purpose
+
+This application allows end users to visualize commercial property locations in a web browser in both map and list form. Users can: perform faceted-searches to narrow down the map/list, drill in to data points to see more detail, and click links to display Google Street View images. Future functionality will support “sales inquiry” and other public-facing and back-office workflows.
+
+### Implementation
+
+This application was built using the React JavaScript framework and Esri’s [Calcite web components](https://developers.arcgis.com/calcite-design-system/components/). The mapping front-end uses the ArcGIS API for JavaScript as ES modules [@arcgis/core](https://www.npmjs.com/package/@arcgis/core). The application is a port of an [existing calcite application](https://github.com/driskull/2022-ds-building-web-apps-jsapi-calcite) to React. Future improvements will: separate code into React Components, make the application more configurable to different data, and add additional reusable forms/mapping functionality.
+
+---
 
 ## Getting Started with Create React App
 
