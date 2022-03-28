@@ -132,9 +132,9 @@ function setupWidgets() {
 	const home = new Home({
 		view: view
 	});
-	view.ui.add(home, 'top-left');
+	view.ui.add(home, 'top-right');
 
-	view.ui.move("zoom", "top-left");
+	view.ui.move("zoom", "top-right");
 
 	const search = new Search({
 		view,
@@ -147,7 +147,7 @@ function setupWidgets() {
 		content: search,
 	  });
 	
-	  view.ui.add(searchExpand, "top-left");
+	  view.ui.add(searchExpand, "top-right");
 	
 	  const legend = new Legend({
 		view,
@@ -158,5 +158,5 @@ function setupWidgets() {
 		content: legend,
 	  });
 	
-	  view.ui.add(legendExpand, "top-left");
+	  view.ui.add(legendExpand, "top-right");
 }

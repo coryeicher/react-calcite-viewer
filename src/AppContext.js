@@ -138,7 +138,7 @@ const AppContextProvider = (props) => {
 		// 	initialResults = results;
 		// 	dispatch({ type: 'ADD_PLACES', payload: results });
 		// });
-		document.title = 'Restaurant Finder'; 		// https://stackoverflow.com/questions/46160461/how-do-you-set-the-document-title-in-react
+		document.title = 'Business Viewer'; 		// https://stackoverflow.com/questions/46160461/how-do-you-set-the-document-title-in-react
 
 	}, []);
 

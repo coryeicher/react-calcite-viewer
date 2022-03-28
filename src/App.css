@@ -7,7 +7,7 @@
 }
 
 #viewDiv {
-  margin-left: 340px;
+  margin-right: 340px;
   border-top: 1px solid var(--calcite-ui-border-3);
 }
 
@@ -29,7 +29,7 @@
   max-width: 100%;
 }
 
-#primary-panel {
+#contextual-panel {
   --calcite-panel-max-width: 340px;
   --calcite-panel-min-width: 340px;
   --calcite-shell-panel-max-width: 340px;
@@ -47,9 +47,9 @@ calcite-card {
 }
 
 body {
-  --calcite-ui-brand: #CCB300;
-  --calcite-ui-brand-hover: #67686a;
-  --calcite-ui-brand-press: ##c7c8c9;
+  --calcite-ui-brand: rgb(62, 130, 250);
+  --calcite-ui-brand-hover: rgb(0, 54, 148);
+  --calcite-ui-brand-press: rgb(0, 23, 64);
 }
 
 body.calcite-theme-dark {

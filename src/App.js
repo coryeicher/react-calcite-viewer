@@ -56,13 +56,13 @@ function App() {
 		<CalciteTooltipManager>
 			<CalciteShell className="calcite-presentation" content-behind id="shell">
 				<div className="temporary-header" slot="header">
-					<img src=".\EICHCORPICON.svg" height="32px"/>
-					RestaurantFinder
+					<CalciteIcon icon="grid" scale="l"/>
+					Business Viewer: Filipino Restaurants
 					{/* <calcite-action-pad layout="horizontal" expand-disabled>
 						<calcite-action id="themeToggle" text="Light" icon="brightness"></calcite-action>
 					</calcite-action-pad> */}
 				</div>
-				<CalciteShellPanel slot="primary-panel" width-scale id="primary-panel">
+				<CalciteShellPanel slot="contextual-panel" width-scale id="contextual-panel">
 					<CalciteFlow id="flow">
 						<CalcitePanel 
 							heading="Results"
@@ -236,7 +236,7 @@ function App() {
 						)]}
 					</div>
 				</CalciteShellCenterRow>
-				<CalciteShellPanel slot="contextual-panel" detached>
+				<CalciteShellPanel slot="primary-panel" detached>
 					<CalciteBlock
 						id="filters"
 						heading="Filters"collapsible
