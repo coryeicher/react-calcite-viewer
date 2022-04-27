@@ -8,7 +8,7 @@ This application allows end users to visualize commercial property locations in 
 
 ### Implementation
 
-This application was built using the React JavaScript framework and Esri’s [Calcite web components](https://developers.arcgis.com/calcite-design-system/components/). The mapping front-end uses the ArcGIS API for JavaScript as ES modules [@arcgis/core](https://www.npmjs.com/package/@arcgis/core). The application is a port of an [existing calcite application](https://github.com/driskull/2022-ds-building-web-apps-jsapi-calcite) to React. Future improvements will: separate code into React Components, make the application more configurable to different data, and add additional reusable forms/mapping functionality.
+This application was built using the React JavaScript framework and Esri’s [Calcite web components](https://developers.arcgis.com/calcite-design-system/components/). The mapping front-end uses the ArcGIS API for JavaScript as ES modules [(@arcgis/core)](https://www.npmjs.com/package/@arcgis/core). The application is a port of an [existing calcite application](https://github.com/driskull/2022-ds-building-web-apps-jsapi-calcite) to React. Future improvements will: separate code into React Components, make the application more configurable to different data, and add additional reusable forms/mapping functionality.
 
 ---
 
