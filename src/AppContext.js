@@ -1,10 +1,9 @@
 import React, { createContext, useEffect, useReducer } from 'react';
 import _isUndefined from 'lodash/isUndefined'
 
-import { appConfig } from "./config.js";
 import { appState } from "./state.js";
-import { queryDetails } from './data/details';
 import { queryItems } from './data/results';
+import { ResetFilters } from './data/filters';
 
 export const AppContext = createContext();
 
@@ -117,6 +116,9 @@ function reducer(state, { type, payload }) {
 				filters: newFilters
 			};
 		case 'CLEAR_FILTERS':
+			// hacky but have exhausted other options at this point
+			// disabled. not fully implemented
+			// ResetFilters(state);
 			return {
 				...state,
 				filters: initialState.filters

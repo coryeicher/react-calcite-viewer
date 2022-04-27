@@ -1,6 +1,6 @@
 export const appConfig = {
   webMapId: "1c03bf18ac7a4d4c8741dd43cb479076", // streetViewProto_03_classic
-  defaultRestaurantType: "all",
+  defaultRestaurantType: "All",
   restaurantTypes: [
     { 0: "Cafe"},
     { 1: "Restaurant"},

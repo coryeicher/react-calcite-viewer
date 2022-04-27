@@ -239,8 +239,9 @@ function App() {
 				<CalciteShellPanel slot="primary-panel" detached>
 					<CalciteBlock
 						id="filters"
-						heading="Filters"collapsible
+						heading="Filters" collapsible="false" open="true"
 						hidden={state.details.activeItem}>
+						{/* removed. not fully implemented
 						<CalciteAction id="reset" icon="reset" slot="icon"
 							hidden={!state.filters.hasChanges}
 							indicator={state.filters.hasChanges}
@@ -249,7 +250,7 @@ function App() {
 									type: 'CLEAR_FILTERS', 
 									payload: []
 								});
-							}}/>
+							}}/> */}
 						<CalciteBlock heading="Basics" open>
 						<CalciteLabel>
 							Restaurant type
@@ -261,7 +262,7 @@ function App() {
 											restaurantTypes: e.target.selectedOption.value }
 									});
 								}}>
-								<CalciteOption value="all">All</CalciteOption>
+								<CalciteOption value="All">All</CalciteOption>
 								{appConfig.restaurantTypes.map((typeObj) => (
 									// hacky and not so pretty
 									<CalciteOption value={`${Object.keys(typeObj)[0]}`}>{Object.values(typeObj)[0]}</CalciteOption>
@@ -307,21 +308,12 @@ function App() {
 										}
 									});
 								}}>
-								<CalciteLabel>
+								{/* <CalciteLabel>
 									Number of seats
-									{/* TODO constrain slider to integer values */}
+									bug. does not always trigger filtering. only works 1st time?
 									<CalciteSlider id="seating" range label-handles min="0" max="80" steps="40"
 										min-value={state.filters.seats.min}
 										max-value={state.filters.seats.max}
-										// seemingly not needed, but if we keep need to dispatch event which calls filterMap()
-										// onCalciteSliderInput={(e) => {
-										// 	dispatch({
-										// 		type: 'HAS_FILTER_CHANGES', 
-										// 		payload: {
-										// 			seats: { min: e.target.minValue, max: e.target.maxValue }
-										// 		}
-										// 	});
-										// }}
 										onCalciteSliderChange={(e) => {
 											dispatch({
 												type: 'HAS_FILTER_CHANGES', 
@@ -331,7 +323,7 @@ function App() {
 											});
 										}}>
 									</CalciteSlider>
-								</CalciteLabel>
+								</CalciteLabel> */}
 							</CalciteBlockSection>
 						</CalciteBlock>
 					</CalciteBlock>
