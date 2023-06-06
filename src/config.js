@@ -1,6 +1,6 @@
 export const appConfig = {
-  // https://eichcorp.maps.arcgis.com/home/item.html?id=e624fa4c6a6c42d2aa756d1a14715378
-  webMapId: "e624fa4c6a6c42d2aa756d1a14715378", // streetViewProto_03_classic_repaired
+  // https://eichcorporg.maps.arcgis.com/home/item.html?id=44f73ed2a9d74e219b40738a476c1bb6
+  webMapId: "44f73ed2a9d74e219b40738a476c1bb6", // streetViewProto_03_classic_repaired
   defaultRestaurantType: "All",
   restaurantTypes: [
     { 0: "Cafe"},
@@ -10,7 +10,7 @@ export const appConfig = {
   ratingTypes: [ 0, 1, 2, 3, 4, 5],
   pageNum: 25,
   queryLayerUrl:
-    "https://services.arcgis.com/dzzxz7TyWArBNp4V/arcgis/rest/services/StreetView_SampleInput_EuroRest_20/FeatureServer",
+    "https://services2.arcgis.com/0jbKR5GTdHdCF61M/arcgis/rest/services/StreetView_SampleInput_EuroRest_20/FeatureServer",
   layerOutFields: [
     "ID",
     "PlaceName",
